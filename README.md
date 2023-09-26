@@ -1,27 +1,43 @@
-# AngularPokedex
+# Pokedex
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+## Projeto Base
 
-## Development server
+1. Lista os Pokemons
+2. Paginar a Lista
+3. Campo de Busca
+4. Ao Clicar no Pokemon mostrar mais detalhes.
+  - Peso
+  - Altura
+  - Tipo
+  - Habiltia
+  - Natureza
+  - Etc
+5. Ao mostrar detalhes mostra o fromato shiny do pokemon
+6. Mostrar toda a cadeia de evolucação do pokemon
+7. Mostrar formas adicionais do pokemon
+8. Mostrar os Movimentos e suas descrições (caso tenha na api)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Projeto Intermediario
 
-## Code scaffolding
+1. Usuário pode Add Pokemons no Favorito
+2. Usuário pode Remover Pokemons no Favorito
+3. Usuário pode Consultar Pokemons Favoritos
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Projeto Avançado
 
-## Build
+1. Usuário pode Montar Times Pokemons sendo que cada time so pode ter 6 pokemons
+2. Usuário pode dar nome pro time.
+3. Usuário pode dar nome para cada pokemon do time.
+4. Usuários deve saber todas as fraquezas e vantagens do seu time.
+5. Todas as informações precisam ficar armazenadas.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Projeto Final
 
-## Running unit tests
+1. Simular Batalha Pokemon com um Outro Time
+2. Simular Ginasio Pokemon
+3. Simular a Liga Pokemon
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Regras
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1. Nada de Promisse
+2. Estilo ta liberado pode usar qualquer biblioteca
