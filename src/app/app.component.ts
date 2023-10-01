@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-pokedex';
+  public pokemons = [1,2,3,4,5,6]
+
+  constructor() { }
+
+
+  public moreInfo(): void {
+    alert('More Info');
+  }
+
 }

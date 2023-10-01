@@ -1,1 +1,25 @@
 <app-header></app-header>
+<app-search></app-search>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col poke-card" (click)="moreInfo()" *ngFor="let pokemon of pokemons" [ngClass]="pokemon > 0 ? 'grass' : ''">
+      <div class="poke-card-container-image">
+        <img src="assets/img/bulbasaur.svg">
+      </div>
+      <div class="poke-card-container-info">
+        <div>
+          <span>#001</span>
+          <strong>Bulbasaur</strong>
+        </div>
+        <div class="poke-card-container-info-icon">
+          <img src="assets/img/icon-types/grass.svg">
+          <img src="assets/img/icon-types/bug.svg">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
