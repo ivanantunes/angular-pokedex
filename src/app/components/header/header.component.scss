@@ -1,5 +1,9 @@
-.logo {
-  z-index: 1;
-  position: absolute;
-  margin-top: 25px;
+.poke-bar {
+  background-color: red;
+}
+
+@media (max-width: 600px) {
+  .poke-logo {
+    width: 100px;
+  }
 }
