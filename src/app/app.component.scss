@@ -78,14 +78,35 @@
 }
 
 
+// ! Colors Background By Types
+
+.poke-card.normal .poke-card-container-image::before {
+  background-color: rgba(141, 141, 141, 0.2);
+}
+
 .poke-card.grass .poke-card-container-image::before {
   background-color: #D6EBDC;
 }
 
+.poke-card.water .poke-card-container-image::before {
+  background-color: #DFECF5;
+}
 
+.poke-card.fire .poke-card-container-image::before {
+  background-color: #FFEBCA;
+}
 
+.poke-card.fighting .poke-card-container-image::before {
+  background-color: rgba(196, 77, 97, 0.2);
+}
 
+.poke-card.flying .poke-card-container-image::before {
+  background-color: #758CBD;
+}
 
+.poke-card.poison .poke-card-container-image::before {
+  background-color: rgba(172, 106, 202, 0.2);
+}
 
 
 @keyframes fadeIn {

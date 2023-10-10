@@ -4,22 +4,27 @@
 <div class="container">
   <div class="row">
 
-    <div class="col poke-card" (click)="moreInfo()" *ngFor="let pokemon of pokemons" [ngClass]="pokemon > 0 ? 'grass' : ''">
+    <div class="col poke-card" (click)="moreInfo()" *ngFor="let pokemon of pokemons" [ngClass]="pokemon.types[0].type.name">
       <div class="poke-card-container-image">
-        <img src="assets/img/bulbasaur.svg">
+        <img [src]="pokemon.sprites.other['official-artwork'].front_default">
       </div>
       <div class="poke-card-container-info">
         <div>
-          <span>#001</span>
-          <strong>Bulbasaur</strong>
+          <span>#{{pokemon.id}}</span>
+          <strong>{{pokemon.name}}</strong>
         </div>
         <div class="poke-card-container-info-icon">
-          <img src="assets/img/icon-types/grass.svg">
-          <img src="assets/img/icon-types/bug.svg">
+          <img *ngFor="let objectType of pokemon.types" [src]="'assets/img/icon-types/'+ objectType.type.name + '.svg'">
         </div>
       </div>
     </div>
 
+    <mat-paginator #paginator
+    (page)="handlePageEvent($event)"
+    [length]="pokemonLenght"
+    [pageSizeOptions]="[10, 25, 50, 75, 100]"
+    [pageSize]="10"
+    [pageIndex]="0"></mat-paginator>
   </div>
 </div>
 
