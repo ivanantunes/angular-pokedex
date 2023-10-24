@@ -21,7 +21,11 @@ export class AppComponent implements AfterViewInit {
   }
 
   public handlePageEvent(event: PageEvent): void {
-    this.request(this.nextPageUrl);
+    if (event.pageIndex > (event.previousPageIndex || 0)) {
+      this.request(this.nextPageUrl);
+    } else {
+      this.request(this.previousPageUrl);
+    }
   }
 
   constructor(private http: HttpClient) { }
@@ -29,7 +33,6 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.request();
   }
-
 
   public moreInfo(): void {
     alert('More Info');
@@ -53,7 +56,6 @@ export class AppComponent implements AfterViewInit {
       })
     ).subscribe({
       next: (result) => {
-        console.log(result);
         this.pokemons = result;
         window.scroll({
           top: 0,
