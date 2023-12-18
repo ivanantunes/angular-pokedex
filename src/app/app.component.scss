@@ -108,6 +108,45 @@
   background-color: rgba(172, 106, 202, 0.2);
 }
 
+.poke-card.ground .poke-card-container-image::before {
+  background-color: rgba(203, 119, 74, 0.2);
+}
+
+.poke-card.rock .poke-card-container-image::before {
+  background-color: rgba(134, 203, 190, 0.2);
+}
+
+.poke-card.bug .poke-card-container-image::before {
+  background-color: rgba(131, 158, 56, 0.2);
+}
+
+.poke-card.ghost .poke-card-container-image::before {
+  background-color: rgba(97, 110, 183, 0.2);
+}
+
+.poke-card.steel .poke-card-container-image::before {
+  background-color: rgba(101, 148, 161, 0.2);
+}
+
+.poke-card.electric .poke-card-container-image::before {
+  background-color: rgba(207, 190, 93, 0.2);
+}
+
+.poke-card.psychic .poke-card-container-image::before {
+  background-color: rgba(235, 140, 133, 0.2);
+}
+
+.poke-card.dragon .poke-card-container-image::before {
+  background-color: rgba(70, 105, 153, 0.2);
+}
+
+.poke-card.dark .poke-card-container-image::before {
+  background-color: rgba(61, 60, 63, 0.2);
+}
+
+.poke-card.fairy .poke-card-container-image::before {
+  background-color: rgba(221, 138, 220, 0.2);
+}
 
 @keyframes fadeIn {
   0% {
