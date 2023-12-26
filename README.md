@@ -1,10 +1,10 @@
 # Pokédex
 
 ## TO:DO
-- [ ] First Page (Dashboard)
+- [X] First Page (Dashboard)
 - List All Pokémons
-  - [ ] Paginator
-  - [ ] Search Box
+  - [X] Paginator
+  - [X] Search Box
   - [ ] Filters
 - Details Pokémons
   - [ ] Height
