@@ -27,13 +27,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { LoadingComponent } from './components/loading/loading.component';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SearchComponent,
-    LoadingComponent
+    LoadingComponent,
+    CardComponent
   ],
   imports: [
     // ! Angular

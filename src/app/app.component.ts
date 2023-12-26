@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { concat, map, merge, of, switchMap, toArray } from 'rxjs';
+import { Pokemon } from './interfaces';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { concat, map, merge, of, switchMap, toArray } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit {
-  public pokemons: any[] = [];
+  public pokemons: Pokemon[] = [];
   private nextPageUrl = '';
   private previousPageUrl = '';
   public pokemonLenght = 0;
@@ -35,10 +36,6 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.request();
     this.cdr.detectChanges();
-  }
-
-  public moreInfo(): void {
-    alert('More Info');
   }
 
   public request(url?: string, search?: string): void {

@@ -4,21 +4,7 @@
 
 <div class="container">
   <div class="row">
-
-    <div class="col poke-card" (click)="moreInfo()" *ngFor="let pokemon of pokemons" [ngClass]="pokemon.types[0].type.name">
-      <div class="poke-card-container-image">
-        <img [src]="pokemon.sprites.other['official-artwork'].front_default">
-      </div>
-      <div class="poke-card-container-info">
-        <div>
-          <span>#{{pokemon.id}}</span>
-          <strong>{{pokemon.name}}</strong>
-        </div>
-        <div class="poke-card-container-info-icon">
-          <img *ngFor="let objectType of pokemon.types" [src]="'assets/img/icon-types/'+ objectType.type.name + '.svg'">
-        </div>
-      </div>
-    </div>
+    <app-card class="col" *ngFor="let pokemon of pokemons" [pokemon]="pokemon"></app-card>
 
     <mat-paginator #paginator
     (page)="handlePageEvent($event)"
