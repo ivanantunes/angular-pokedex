@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { concat, map, merge, of, switchMap, toArray } from 'rxjs';
+import { map, merge, of, switchMap, toArray } from 'rxjs';
 import { Pokemon } from './interfaces';
+import { DatabaseService } from './services';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,7 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) { }
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, private db: DatabaseService) { }
 
   ngAfterViewInit(): void {
     this.request();
@@ -58,7 +59,7 @@ export class AppComponent implements AfterViewInit {
       }),
       switchMap((rows) => {
         if (Array.isArray(rows)) {
-          return concat(...rows.map((row) => {
+          return merge(...rows.map((row) => {
             return this.http.get(row.url);
           })).pipe(
             toArray()
@@ -67,7 +68,8 @@ export class AppComponent implements AfterViewInit {
           this.paginator.pageIndex = 0;
           return of([rows]);
         }
-      })
+      }),
+      map((result: Pokemon[]) => result.sort((a, b) => a.id - b.id))
     ).subscribe({
       next: (result) => {
         this.pokemons = result;

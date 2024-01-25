@@ -13,6 +13,12 @@
   box-shadow: 0px 10px 51px -5px rgba(183, 189, 193, 0.7);
 }
 
+.poke-card .poke-card-container-action {
+  display: flex;
+  justify-content: end;
+  padding: 10px;
+}
+
 .poke-card .poke-card-container-image {
   width: 20rem;
   height: 20rem;
@@ -43,7 +49,6 @@
   align-items: flex-end;
   justify-content: space-between;
 }
-
 
 .poke-card .poke-card-container-info > div span {
   display: block;
