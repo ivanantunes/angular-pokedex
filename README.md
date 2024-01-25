@@ -17,8 +17,8 @@
   - [ ] Movements
   > **Notes**: The more details you provide, the more complete the pokemon details will be.
 - User (Local)
-  - [ ] Add Pokémon to Favorite
-  - [ ] Remove Pokémon to Favorite
+  - [X] Add Pokémon to Favorite
+  - [X] Remove Pokémon to Favorite
   - [ ] List Pokémon to Favorite
   - [ ] Create Pokémon Teams
   - [ ] Define team name
