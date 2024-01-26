@@ -4,11 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run indexToDeploy && ng build && npm run indexToDev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "indexToDeploy": "mv src/index.html src/index_dev.html && mv src/index_deploy.html src/index.html",
+    "indexToDev": "mv src/index.html src/index_deploy.html && mv src/index_dev.html src/index.html",
     "postversion": "git push && git push --tags",
-    "deploy": "npx angular-cli-ghpages --dir=dist/angular-pokedex"
+    "deploy": "npm run build && npx angular-cli-ghpages --dir=dist/angular-pokedex"
   },
   "private": true,
   "dependencies": {
