@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { CrudSchema } from '../interfaces';
 import { DatabaseService } from '../services';
 import { CrudBase } from '../class';
