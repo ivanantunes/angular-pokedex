@@ -47,7 +47,8 @@ export class FavoriteView implements CrudBase<Favorite> {
 
   async delete(id: number): Promise<void> {
     try {
-      return this.database.deleteRow(this.schema.tablename, id);
+      await this.database.deleteRow(this.schema.tablename, id);
+      return Promise.resolve();
     } catch (error) {
       const crudError: CrudError = { message: 'Failed to Delete Favorite Pokemon', log: error };
       return Promise.reject(crudError);
