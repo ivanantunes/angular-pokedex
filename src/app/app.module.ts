@@ -15,6 +15,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SearchComponent } from './components/search/search.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { CardComponent } from './components/card/card.component';
+
+// ! Pages
+import { PokemonDetailsComponent } from './pages/pokemon-details/pokemon-details.component';
 
 // ! Material
 import { MatDialogModule } from '@angular/material/dialog';
@@ -29,25 +34,30 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { LoadingComponent } from './components/loading/loading.component';
-import { CardComponent } from './components/card/card.component';
+
 
 @NgModule({
   declarations: [
+    // ! Components
     AppComponent,
     HeaderComponent,
     SearchComponent,
     LoadingComponent,
-    CardComponent
+    CardComponent,
+
+    // ! Pages
+    PokemonDetailsComponent
   ],
   imports: [
     // ! Angular
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+
+    // ! Routers
+    AppRoutingModule,
 
     // ! Ngx
     ToastrModule.forRoot(),
