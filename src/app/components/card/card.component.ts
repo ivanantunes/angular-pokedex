@@ -1,4 +1,6 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { ToastrConfig } from 'src/app/constants';
 import { Pokemon } from 'src/app/interfaces';
 import { DatabaseService } from 'src/app/services';
 import { FavoriteView } from 'src/app/view';
@@ -17,22 +19,24 @@ export class CardComponent implements AfterViewInit {
   public isFavorite = false;
 
   constructor(
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private toastrService: ToastrService
   ) { }
 
   async ngAfterViewInit(): Promise<void> {
-
     try {
       const favoritePokemon = await this.favorite;
 
       if (favoritePokemon.length > 0) {
         this.isFavorite = favoritePokemon[0].pokemonId === this.pokemon.id;
       }
-
     } catch (error) {
-      // TODO: Add Toas Error
+      this.toastrService.error(
+        'Failed to Check Favorite Pokemon.',
+        'Load Favorite Error :(',
+        ToastrConfig
+      );
     }
-
   }
 
   public moreInfo(): void {
@@ -45,16 +49,28 @@ export class CardComponent implements AfterViewInit {
 
       if (favorite.length > 0 && favorite[0].pokemonId === this.pokemon.id) {
         await this.favoriteView.delete(favorite[0].id);
-        // alert('Success Removed Pokemon to Favorite!');
+        this.toastrService.warning(
+          'Success on Removed Pokemon to Favorite!',
+          'Removed Favorite Warning :O',
+          ToastrConfig
+        );
         this.isFavorite = false;
       } else {
         await this.favoriteView.create({ pokemonId: this.pokemon.id });
-        // alert('Success Added Pokemon to Favorite!');
+        this.toastrService.success(
+          'Success on Added Pokemon to Favorite!',
+          'Added Favorite Success ;)',
+          ToastrConfig
+        );
         this.isFavorite = true;
       }
 
     } catch (error) {
-      // TODO: Add Toas Error
+      this.toastrService.error(
+        'Failed to Favorite Pokemon.',
+        'Favorite Error :(',
+        ToastrConfig
+      );
     }
   }
 

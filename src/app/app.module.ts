@@ -5,6 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+// ! Ngx
+import { ToastrModule } from 'ngx-toastr';
+
 // ! Routing
 import { AppRoutingModule } from './app-routing.module';
 
@@ -45,6 +48,9 @@ import { CardComponent } from './components/card/card.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+
+    // ! Ngx
+    ToastrModule.forRoot(),
 
     // ! Material
     MatDialogModule,
