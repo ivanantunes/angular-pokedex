@@ -40,7 +40,7 @@ export class CardComponent implements AfterViewInit {
   }
 
   public moreInfo(): void {
-    alert('More Info');
+    location.href = `/pokemon/details/${this.pokemon.id}`
   }
 
   public async onFavorite() {

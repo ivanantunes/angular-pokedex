@@ -1,8 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { map, merge, of, switchMap, toArray } from 'rxjs';
-import { Pokemon } from './interfaces';
+import { Component } from '@angular/core';
 import { DatabaseService } from './services';
 
 @Component({
@@ -10,79 +6,6 @@ import { DatabaseService } from './services';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit {
-  public pokemons: Pokemon[] = [];
-  private nextPageUrl = '';
-  private previousPageUrl = '';
-  public pokemonLenght = 0;
-  private search?: string = '';
-  public loading = false;
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  private get pageSize(): number {
-    return this.paginator.pageSize;
-  }
-
-  public handlePageEvent(event: PageEvent): void {
-    if (event.pageIndex > (event.previousPageIndex || 0)) {
-      this.request(this.nextPageUrl, this.search);
-    } else {
-      this.request(this.previousPageUrl, this.search);
-    }
-  }
-
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, private db: DatabaseService) { }
-
-  ngAfterViewInit(): void {
-    this.request();
-    this.cdr.detectChanges();
-  }
-
-  public request(url?: string, search?: string): void {
-    this.loading = true;
-    this.search = search;
-
-    this.http.get(url || `https://pokeapi.co/api/v2/pokemon/${this.search || ''}?limit=${this.pageSize}&offset=0`).pipe(
-      map((listOfLinks: any) => {
-        if (listOfLinks.results) {
-          this.nextPageUrl = listOfLinks.next;
-          this.previousPageUrl = listOfLinks.previous;
-          this.pokemonLenght = listOfLinks.count;
-          return listOfLinks.results as any[];
-        } else {
-          this.pokemonLenght = 1;
-          this.nextPageUrl = '';
-          this.previousPageUrl = '';
-          return listOfLinks;
-        }
-      }),
-      switchMap((rows) => {
-        if (Array.isArray(rows)) {
-          return merge(...rows.map((row) => {
-            return this.http.get(row.url);
-          })).pipe(
-            toArray()
-          );
-        } else {
-          this.paginator.pageIndex = 0;
-          return of([rows]);
-        }
-      }),
-      map((result: Pokemon[]) => result.sort((a, b) => a.id - b.id))
-    ).subscribe({
-      next: (result) => {
-        this.pokemons = result;
-        window.scroll({
-          top: 0,
-          left: 0,
-          behavior: 'smooth'
-        });
-        this.loading = false;
-      },
-      error: (error) => {
-        this.loading = false;
-      }
-    })
-  }
+export class AppComponent  {
+  constructor(private db: DatabaseService) { }
 }

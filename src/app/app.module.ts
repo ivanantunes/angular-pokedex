@@ -20,6 +20,7 @@ import { CardComponent } from './components/card/card.component';
 
 // ! Pages
 import { PokemonDetailsComponent } from './pages/pokemon-details/pokemon-details.component';
+import { HomeComponent } from './pages/home/home.component';
 
 // ! Material
 import { MatDialogModule } from '@angular/material/dialog';
@@ -46,7 +47,8 @@ import { MatSelectModule } from '@angular/material/select';
     CardComponent,
 
     // ! Pages
-    PokemonDetailsComponent
+    PokemonDetailsComponent,
+    HomeComponent
   ],
   imports: [
     // ! Angular
