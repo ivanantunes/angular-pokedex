@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ToastrConfig } from 'src/app/constants';
 import { Pokemon } from 'src/app/interfaces';
@@ -20,7 +21,8 @@ export class CardComponent implements AfterViewInit {
 
   constructor(
     private databaseService: DatabaseService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private route: Router
   ) { }
 
   async ngAfterViewInit(): Promise<void> {
@@ -40,7 +42,8 @@ export class CardComponent implements AfterViewInit {
   }
 
   public moreInfo(): void {
-    location.href = `/pokemon/details/${this.pokemon.id}`
+    this.route.navigate([`pokemon/details/${this.pokemon.id}`])
+    // location.href = `/pokemon/details/${this.pokemon.id}`
   }
 
   public async onFavorite() {
