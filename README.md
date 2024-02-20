@@ -7,8 +7,8 @@
   - [X] Search Box
   - [ ] Filters
 - Details Pokémons
-  - [ ] Height
-  - [ ] Weight
+  - [X] Height
+  - [X] Weight
   - [ ] Weaknesses
   - [ ] Stats
   - [ ] Types
