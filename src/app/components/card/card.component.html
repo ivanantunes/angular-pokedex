@@ -1,22 +1,29 @@
-<div class="col poke-card"  [ngClass]="pokemon.types[0].type.name">
-  <div class="poke-card-container-action">
+<section class="col poke-card"  [ngClass]="pokemon.types[0].type.name">
+  <section class="poke-card-container-action">
     <button  mat-icon-button routerLink="/pokemon/details/{{pokemon.id}}" matTooltip="Click to More Info!">
       <mat-icon>info</mat-icon>
     </button>
 
-    <app-button-favorite [pokemonId]="pokemon.id"></app-button-favorite>
-  </div>
+    <app-button-favorite [pokemonId]="pokemon.id" />
+  </section>
 
-  <div class="poke-card-container-image">
+  <section class="poke-card-container-image">
     <img [src]="pokemon.sprites.other['official-artwork'].front_default" [alt]="'Image ' + pokemon.name">
-  </div>
-  <div class="poke-card-container-info">
-    <div>
-      <span>#{{pokemon.id.toString().padStart(4, '0')}}</span>
+  </section>
+
+  <section class="poke-card-container-info">
+
+    <section>
+      <p class="pokemon-info-id">#{{pokemon.id.toString().padStart(4, '0')}}</p>
       <strong><p>{{pokemon.name}}</p></strong>
-    </div>
-    <div class="poke-card-container-info-icon">
-      <img *ngFor="let objectType of pokemon.types" [src]="'assets/img/icon-types/'+ objectType.type.name + '.svg'" alt="Type">
-    </div>
-  </div>
-</div>
+    </section>
+
+    <section class="poke-card-container-info-icon">
+      @for (objectType of pokemon.types; track $index) {
+        <img src="assets/img/icon-types/{{objectType.type.name}}.svg" alt="Type {{objectType.type.name}}" />
+      }
+    </section>
+
+  </section>
+
+</section>

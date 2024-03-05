@@ -8,11 +8,21 @@ import { MatIconButton } from '@angular/material/button';
 import { NgClass, NgFor } from '@angular/common';
 
 @Component({
-    selector: 'app-card',
-    templateUrl: './card.component.html',
-    styleUrls: ['./card.component.scss'],
-    standalone: true,
-    imports: [NgClass, MatIconButton, MatTooltip, RouterLink, MatIcon, ButtonFavoriteComponent, NgFor]
+  selector: 'app-card',
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.scss'],
+  standalone: true,
+  imports: [
+    NgClass,
+    NgFor,
+    RouterLink,
+    // ! Material
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    // ! Components
+    ButtonFavoriteComponent
+  ]
 })
 export class CardComponent {
 
