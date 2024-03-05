@@ -3,11 +3,17 @@ import { ToastrService } from 'ngx-toastr';
 import { ToastrConfig } from 'src/app/constants';
 import { DatabaseService } from 'src/app/services';
 import { FavoriteView } from 'src/app/view';
+import { MatIcon } from '@angular/material/icon';
+import { NgIf } from '@angular/common';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-button-favorite',
-  templateUrl: './button-favorite.component.html',
-  styleUrl: './button-favorite.component.scss'
+    selector: 'app-button-favorite',
+    templateUrl: './button-favorite.component.html',
+    styleUrl: './button-favorite.component.scss',
+    standalone: true,
+    imports: [MatIconButton, MatTooltip, NgIf, MatIcon]
 })
 export class ButtonFavoriteComponent implements AfterViewInit {
 

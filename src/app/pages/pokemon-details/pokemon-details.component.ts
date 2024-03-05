@@ -1,18 +1,23 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { concat, firstValueFrom, map, merge, switchMap, toArray } from 'rxjs';
-import { Location } from '@angular/common';
+import { Location, NgIf, NgFor, NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { DamangeObject, Pokemon } from '../../interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { ToastrConfig } from '../../constants';
 import { DatabaseService, RequestService } from 'src/app/services';
 import { FavoriteView } from 'src/app/view';
+import { BarChartModule } from '@swimlane/ngx-charts';
+import { ButtonFavoriteComponent } from '../../components/button-favorite/button-favorite.component';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
-  selector: 'app-pokemon-details',
-  templateUrl: './pokemon-details.component.html',
-  styleUrls: ['./pokemon-details.component.scss']
+    selector: 'app-pokemon-details',
+    templateUrl: './pokemon-details.component.html',
+    styleUrls: ['./pokemon-details.component.scss'],
+    standalone: true,
+    imports: [NgIf, LoadingComponent, NgFor, ButtonFavoriteComponent, NgClass, BarChartModule]
 })
 export class PokemonDetailsComponent implements OnInit {
 

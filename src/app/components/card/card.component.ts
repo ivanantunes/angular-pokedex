@@ -1,11 +1,18 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Pokemon } from 'src/app/interfaces';
+import { ButtonFavoriteComponent } from '../button-favorite/button-favorite.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
+import { NgClass, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+    selector: 'app-card',
+    templateUrl: './card.component.html',
+    styleUrls: ['./card.component.scss'],
+    standalone: true,
+    imports: [NgClass, MatIconButton, MatTooltip, RouterLink, MatIcon, ButtonFavoriteComponent, NgFor]
 })
 export class CardComponent {
 

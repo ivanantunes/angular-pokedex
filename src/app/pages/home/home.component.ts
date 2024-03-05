@@ -6,11 +6,18 @@ import { Pokemon } from '../../interfaces';
 import { PageSize, ToastrConfig } from 'src/app/constants';
 import { RequestService } from 'src/app/services';
 import { ToastrService } from 'ngx-toastr';
+import { PaginatorComponent } from '../../components/paginator/paginator.component';
+import { CardComponent } from '../../components/card/card.component';
+import { SearchComponent } from '../../components/search/search.component';
+import { LoadingComponent } from '../../components/loading/loading.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss',
+    standalone: true,
+    imports: [NgIf, LoadingComponent, SearchComponent, NgFor, CardComponent, PaginatorComponent]
 })
 export class HomeComponent implements AfterViewInit {
   public pokemons: Pokemon[] = [];

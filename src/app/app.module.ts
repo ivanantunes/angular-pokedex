@@ -40,50 +40,45 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  declarations: [
-    // ! Components
-    HeaderComponent,
-    SearchComponent,
-    LoadingComponent,
-    CardComponent,
-    ButtonFavoriteComponent,
-    PaginatorComponent,
-
-    // ! Pages
-    AppComponent,
-    PokemonDetailsComponent,
-    HomeComponent,
-  ],
-  imports: [
-    // ! Angular
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-
-    // ! Routers
-    AppRoutingModule,
-
-    // ! Ngx
-    ToastrModule.forRoot(),
-    NgxChartsModule,
-
-    // ! Material
-    MatDialogModule,
-    MatButtonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatCardModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatMenuModule,
-    MatProgressSpinnerModule,
-    MatSelectModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        // ! Pages
+        AppComponent],
+    imports: [
+        // ! Angular
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        // ! Routers
+        AppRoutingModule,
+        // ! Ngx
+        ToastrModule.forRoot(),
+        NgxChartsModule,
+        // ! Material
+        MatDialogModule,
+        MatButtonModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatCardModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatMenuModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        // ! Components
+        HeaderComponent,
+        SearchComponent,
+        LoadingComponent,
+        CardComponent,
+        ButtonFavoriteComponent,
+        PaginatorComponent,
+        PokemonDetailsComponent,
+        HomeComponent
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
