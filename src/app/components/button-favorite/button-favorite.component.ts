@@ -10,10 +10,24 @@ import { MatIconButton } from '@angular/material/button';
 
 @Component({
     selector: 'app-button-favorite',
-    templateUrl: './button-favorite.component.html',
-    styleUrl: './button-favorite.component.scss',
+    template: `
+      <button mat-icon-button color="warn" (click)="onFavorite()" [matTooltip]="isFavorite ? 'Click to Unfavorite :(' : 'Click to Favorite!'">
+        @if (isFavorite) {
+          <mat-icon>favorite</mat-icon>
+        } @else {
+          <mat-icon>favorite_border</mat-icon>
+        }
+      </button>
+    `,
     standalone: true,
-    imports: [MatIconButton, MatTooltip, NgIf, MatIcon]
+    imports: [
+      NgIf,
+
+      // ! Material
+      MatIconButton,
+      MatTooltip,
+      MatIcon
+  ]
 })
 export class ButtonFavoriteComponent implements AfterViewInit {
 
