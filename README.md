@@ -9,10 +9,10 @@
 - Details Pokémons
   - [X] Height
   - [X] Weight
-  - [ ] Weaknesses
-  - [ ] Stats
-  - [ ] Types
-  - [ ] Shiny Format
+  - [X] Weaknesses
+  - [X] Base Stats
+  - [X] Types
+  - [X] Shiny Format
   - [ ] Evolutions
   - [ ] Movements
   > **Notes**: The more details you provide, the more complete the pokemon details will be.

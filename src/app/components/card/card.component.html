@@ -1,9 +1,10 @@
-<div class="col poke-card"  [ngClass]="pokemon.types[0].type.name" routerLink="/pokemon/details/{{pokemon.id}}" matTooltip="More Information">
+<div class="col poke-card"  [ngClass]="pokemon.types[0].type.name">
   <div class="poke-card-container-action">
-    <button mat-icon-button color="warn" (click)="onFavorite()">
-      <mat-icon *ngIf="!isFavorite">favorite_border</mat-icon>
-      <mat-icon *ngIf="isFavorite">favorite</mat-icon>
+    <button  mat-icon-button routerLink="/pokemon/details/{{pokemon.id}}" matTooltip="Click to More Info!">
+      <mat-icon>info</mat-icon>
     </button>
+
+    <app-button-favorite [pokemonId]="pokemon.id"></app-button-favorite>
   </div>
 
   <div class="poke-card-container-image">

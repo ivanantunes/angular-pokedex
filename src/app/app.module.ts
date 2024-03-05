@@ -7,18 +7,21 @@ import { HttpClientModule } from '@angular/common/http';
 
 // ! Ngx
 import { ToastrModule } from 'ngx-toastr';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 // ! Routing
 import { AppRoutingModule } from './app-routing.module';
 
 // ! Components
-import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SearchComponent } from './components/search/search.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CardComponent } from './components/card/card.component';
+import { ButtonFavoriteComponent } from './components/button-favorite/button-favorite.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 // ! Pages
+import { AppComponent } from './app.component';
 import { PokemonDetailsComponent } from './pages/pokemon-details/pokemon-details.component';
 import { HomeComponent } from './pages/home/home.component';
 
@@ -36,19 +39,20 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
-
 @NgModule({
   declarations: [
     // ! Components
-    AppComponent,
     HeaderComponent,
     SearchComponent,
     LoadingComponent,
     CardComponent,
+    ButtonFavoriteComponent,
+    PaginatorComponent,
 
     // ! Pages
+    AppComponent,
     PokemonDetailsComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     // ! Angular
@@ -63,6 +67,7 @@ import { MatSelectModule } from '@angular/material/select';
 
     // ! Ngx
     ToastrModule.forRoot(),
+    NgxChartsModule,
 
     // ! Material
     MatDialogModule,

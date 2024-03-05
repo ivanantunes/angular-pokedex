@@ -204,3 +204,68 @@ export interface Ability {
   name: string;
   url: string;
 }
+
+export interface PokemonTypeObject {
+  count: number;
+  next?: any;
+  previous?: any;
+  results: PokemonType[];
+}
+
+export interface PokemonType {
+  name: string;
+  url: string;
+}
+
+
+
+
+
+
+
+export interface DamangeObject {
+  damage_relations: DamageRelations;
+  game_indices: GameIndexDamage[];
+  generation: DoubleDamageFrom;
+  id: number;
+  move_damage_class: DoubleDamageFrom;
+  moves: DoubleDamageFrom[];
+  name: string;
+  names: NameDamage[];
+  past_damage_relations: PastDamageRelation[];
+  pokemon: Pokemon[];
+}
+
+interface PokemonDamage {
+  pokemon: DoubleDamageFrom;
+  slot: number;
+}
+
+interface PastDamageRelation {
+  damage_relations: DamageRelations;
+  generation: DoubleDamageFrom;
+}
+
+interface NameDamage {
+  language: DoubleDamageFrom;
+  name: string;
+}
+
+interface GameIndexDamage {
+  game_index: number;
+  generation: DoubleDamageFrom;
+}
+
+interface DamageRelations {
+  double_damage_from: DoubleDamageFrom[];
+  double_damage_to: DoubleDamageFrom[];
+  half_damage_from: DoubleDamageFrom[];
+  half_damage_to: DoubleDamageFrom[];
+  no_damage_from: DoubleDamageFrom[];
+  no_damage_to: any[];
+}
+
+interface DoubleDamageFrom {
+  name: string;
+  url: string;
+}

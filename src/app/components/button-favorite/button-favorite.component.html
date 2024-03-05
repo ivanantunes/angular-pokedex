@@ -1,0 +1,4 @@
+<button mat-icon-button color="warn" (click)="onFavorite()" [matTooltip]="isFavorite ? 'Click to Unfavorite :(' : 'Click to Favorite!'">
+  <mat-icon *ngIf="!isFavorite">favorite_border</mat-icon>
+  <mat-icon *ngIf="isFavorite">favorite</mat-icon>
+</button>

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import { concat, firstValueFrom, map, merge, switchMap, toArray } from 'rxjs';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Pokemon } from '../../interfaces';
+import { DamangeObject, Pokemon } from '../../interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { ToastrConfig } from '../../constants';
-import { DatabaseService } from 'src/app/services';
+import { DatabaseService, RequestService } from 'src/app/services';
 import { FavoriteView } from 'src/app/view';
 
 @Component({
@@ -19,17 +19,24 @@ export class PokemonDetailsComponent implements OnInit {
   public loading = false;
   public pokemon?: Pokemon;
   public specie = '';
-  public isFavorite = false;
   public height = '0 m';
   public weight = '0 kg';
-  public abilities = ''
+  public abilities = '';
 
-  private favoriteView = new FavoriteView(this.databaseService);
+  // ! Base Stats
+  public results: { name: string, value: number }[] = [];
+  public xScaleMax = 0;
+  public colorScheme: any = {
+    domain: ['#eb170c', '#851005', '#4ac70c', '#5c0b04', '#246304', '#0460bd']
+  };
+
+  // ! Types Damage
+  public damages: { name: string, value: number }[] = [];
 
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
               private toastrService: ToastrService,
-              private databaseService: DatabaseService,
+              private request: RequestService,
               private _location: Location) {}
 
   async ngOnInit(): Promise<void> {
@@ -38,7 +45,10 @@ export class PokemonDetailsComponent implements OnInit {
       const params = await firstValueFrom(this.route.paramMap);
       const id = params.get('id');
       this.pokemon = await this.getPokemonById(id ?? '');
+      console.log(this.pokemon);
       this.specie = await this.getSpecieByUrl(this.pokemon.species.url);
+      this.setupBaseStats();
+
       const height = String(this.pokemon.height);
       const weight = String(this.pokemon.weight);
 
@@ -60,19 +70,8 @@ export class PokemonDetailsComponent implements OnInit {
                                           .map((r) => `${r.substring(0, 1).toUpperCase()}${r.substring(1, r.length)}`)
                                           .join(', ');
 
-      try {
-        const favoritePokemon = await this.favorite;
-
-        if (favoritePokemon.length > 0) {
-          this.isFavorite = favoritePokemon[0].pokemonId === this.pokemon?.id;
-        }
-      } catch (error) {
-        this.toastrService.error(
-          'Failed to Check Favorite Pokemon.',
-          'Load Favorite Error :(',
-          ToastrConfig
-        );
-      }
+      // await firstValueFrom(this.pokemonTypeChart());
+      this.pokemonTypeChart()
 
       this.loading = false;
     } catch (error) {
@@ -113,47 +112,101 @@ export class PokemonDetailsComponent implements OnInit {
   // backClicked() {
   //   this._location.back();
   // }
-
-  public async onFavorite() {
-    try {
-      const favorite = await this.favorite;
-
-      if (favorite.length > 0 && favorite[0].pokemonId === this.pokemon?.id) {
-        await this.favoriteView.delete(favorite[0].id);
-        this.toastrService.warning(
-          'Success on Removed Pokemon to Favorite!',
-          'Removed Favorite Warning :O',
-          ToastrConfig
-        );
-        this.isFavorite = false;
-      } else {
-        await this.favoriteView.create({ pokemonId: this.pokemon?.id });
-        this.toastrService.success(
-          'Success on Added Pokemon to Favorite!',
-          'Added Favorite Success ;)',
-          ToastrConfig
-        );
-        this.isFavorite = true;
-      }
-
-    } catch (error) {
-      this.toastrService.error(
-        'Failed to Favorite Pokemon.',
-        'Favorite Error :(',
-        ToastrConfig
-      );
-    }
-  }
-
-  public get favorite() {
-    return this.favoriteView.read({
-        pageIndex: 0,
-        pageSize: 1,
-        where: { pokemonId: this.pokemon?.id }
-      });
-  }
-
   public slice(text: string, position: number, inc: string): string {
 		return text.slice(0, position) + inc + text.slice(position);
 	}
+
+  private setupBaseStats(): void {
+    let max = 0;
+    this.pokemon?.stats.forEach((stat) => {
+      this.results.push({ name: this.getFormatStats(stat.stat.name), value: stat.base_stat });
+      const tempMax = stat.stat.name === 'hp' ? this.getPokemonHPStat(stat.base_stat, 100, 31, 255) : this.getPokemonOthersStats(true, stat.base_stat, 100, 31, 255);
+
+      if (tempMax > max) {
+        max = tempMax;
+      }
+
+      // return {
+      //   name: this.getFormatStats(stat.stat.name),
+      //   baseStats: stat.base_stat,
+      //   min: stat.stat.name === 'hp' ? this.getPokemonHPStat(stat.base_stat, 100) : this.getPokemonOthersStats(false, stat.base_stat, 100),
+      //   max: stat.stat.name === 'hp' ? this.getPokemonHPStat(stat.base_stat, 100, 31, 255) : this.getPokemonOthersStats(true, stat.base_stat, 100, 31, 255),
+      // }
+    });
+
+    this.xScaleMax = max;
+  }
+
+  private getFormatStats(name: string): string {
+		switch (name) {
+			case 'special-attack':
+				return 'Sp. Atk';
+			case 'special-defense':
+				return 'Sp. Def';
+			default:
+				return name
+					.replace(/-/g, ' ')
+					.replace(/\w\S*/g, (w: any) => w.replace(/^\w/, (c: any) => c.toUpperCase()));
+		}
+	}
+
+  public getPokemonHPStat(base: number, level: number, iv: number = 0, ev: number = 0): number {
+		return Math.floor(0.01 * (2 * base + iv + Math.floor(0.25 * ev)) * level) + level + 10;
+	}
+
+  public getPokemonOthersStats(nature: boolean, base: number, level: number, iv: number = 0, ev: number = 0): number {
+		return Math.floor(((((2 * base + iv + Math.floor(ev * 0.25)) * level) / 100) + 5) * (nature ? 1.1 : 0.9));
+	}
+
+  public pokemonTypeChart(): void {
+    this.request.pokemonTypes.pipe(
+      switchMap((pokemonTypeObject) => {
+        return merge(...(this.pokemon as Pokemon).types.map((type) => {
+          return this.http.get<DamangeObject>(type.type.url).pipe(
+            map((damangeObject) => {
+              const damaged: Array<{ type: string, damage: number }> = [];
+
+              damangeObject.damage_relations.double_damage_from
+                                            .forEach((doubleDamage) => damaged.push({ type: doubleDamage.name, damage: 2 }));
+
+              damangeObject.damage_relations.half_damage_from
+                                            .forEach((halfDamage) => damaged.push({ type: halfDamage.name, damage: 0.5 }));
+
+              damangeObject.damage_relations.no_damage_from
+                                            .forEach((noDamage) => damaged.push({ type: noDamage.name, damage: 0 }));
+
+              return damaged;
+            })
+          )
+        })).pipe(
+          toArray(),
+          map((damagedTypes) => {
+            return pokemonTypeObject.results.map((result) => {
+              let filterDamaged = damagedTypes[0].filter((e) => e.type === result.name);
+
+              if (damagedTypes.length >= 2) {
+                filterDamaged = [...filterDamaged, ...damagedTypes[1]].filter((e) => e.type === result.name);
+              }
+
+              let finalDamageTakenByType = filterDamaged.length <= 0 ? 1 : filterDamaged.reduce((a, b) => {
+                a.damage *= b.damage;
+                return a;
+              }).damage;
+
+              return { name: result.name, value: finalDamageTakenByType }
+            })
+          }),
+          map((result) => {
+            result.splice(result.findIndex((f) => f.name === 'shadow'), 1);
+            result.splice(result.findIndex((f) => f.name === 'unknown'), 1);
+
+            return result;
+          })
+        )
+      })
+    ).subscribe({
+      next: (result) => this.damages = result,
+      error: (error) => console.log(error)
+    })
+  }
 }

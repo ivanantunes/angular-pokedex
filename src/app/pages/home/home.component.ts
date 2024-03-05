@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { map, merge, of, switchMap, toArray } from 'rxjs';
+import { Observable, map, merge, of, switchMap, tap, toArray } from 'rxjs';
 import { Pokemon } from '../../interfaces';
+import { PageSize, ToastrConfig } from 'src/app/constants';
+import { RequestService } from 'src/app/services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -17,70 +20,85 @@ export class HomeComponent implements AfterViewInit {
   private search?: string = '';
   public loading = false;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  public paginator?: MatPaginator;
 
   private get pageSize(): number {
-    return this.paginator.pageSize;
+    return this.paginator?.pageSize ?? PageSize;
   }
 
   public handlePageEvent(event: PageEvent): void {
     if (event.pageIndex > (event.previousPageIndex || 0)) {
-      this.request(this.nextPageUrl, this.search);
+      this.processPokemons(this.nextPageUrl, this.search);
     } else {
-      this.request(this.previousPageUrl, this.search);
+      this.processPokemons(this.previousPageUrl, this.search);
     }
   }
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) { }
+  constructor(private request: RequestService,
+              private cdr: ChangeDetectorRef,
+              private http: HttpClient,
+              private toastr: ToastrService
+    ) { }
 
   ngAfterViewInit(): void {
-    this.request();
+    this.processPokemons();
     this.cdr.detectChanges();
   }
 
-  public request(url?: string, search?: string): void {
+  private setupListOfLinks(data: any): any {
+    if (data.results) {
+      this.nextPageUrl = data.next;
+      this.previousPageUrl = data.previous;
+      this.pokemonLenght = data.count;
+      return data.results as any[];
+    } else {
+      this.pokemonLenght = 1;
+      this.nextPageUrl = '';
+      this.previousPageUrl = '';
+      return data;
+    }
+  }
+
+  private setupPokemonByUrl(data: any): Observable<Pokemon[]> {
+    if (Array.isArray(data)) {
+      return merge(...data.map((row) => {
+        return this.http.get<Pokemon>(row.url);
+      })).pipe(
+        toArray()
+      );
+    } else {
+      if (this.paginator) {
+        this.paginator.pageIndex = 0;
+      }
+      return of([data]);
+    }
+  }
+
+  private scrollToTop(): void {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  public processPokemons(url?: string, search?: string): void {
     this.loading = true;
     this.search = search;
 
-    this.http.get(url || `https://pokeapi.co/api/v2/pokemon/${this.search || ''}?limit=${this.pageSize}&offset=0`).pipe(
-      map((listOfLinks: any) => {
-        if (listOfLinks.results) {
-          this.nextPageUrl = listOfLinks.next;
-          this.previousPageUrl = listOfLinks.previous;
-          this.pokemonLenght = listOfLinks.count;
-          return listOfLinks.results as any[];
-        } else {
-          this.pokemonLenght = 1;
-          this.nextPageUrl = '';
-          this.previousPageUrl = '';
-          return listOfLinks;
-        }
-      }),
-      switchMap((rows) => {
-        if (Array.isArray(rows)) {
-          return merge(...rows.map((row) => {
-            return this.http.get(row.url);
-          })).pipe(
-            toArray()
-          );
-        } else {
-          this.paginator.pageIndex = 0;
-          return of([rows]);
-        }
-      }),
-      map((result: Pokemon[]) => result.sort((a, b) => a.id - b.id))
+    this.request.getPokemons(url, this.search, this.pageSize).pipe(
+      map((listOfLinks) => this.setupListOfLinks(listOfLinks)),
+      switchMap((rows) => this.setupPokemonByUrl(rows)),
+      map((result) => result.sort((a, b) => a.id - b.id))
     ).subscribe({
       next: (result) => {
         this.pokemons = result;
-        window.scroll({
-          top: 0,
-          left: 0,
-          behavior: 'smooth'
-        });
+        this.scrollToTop();
         this.loading = false;
       },
       error: (error) => {
         this.loading = false;
+        this.toastr.error(`Failed to Load Pokemons :(`, 'Error Load Pokemons', ToastrConfig);
       }
     })
   }

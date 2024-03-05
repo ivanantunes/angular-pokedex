@@ -1,15 +1,13 @@
 <app-loading *ngIf="loading"></app-loading>
-<app-search (searchValue)="request(undefined, $event)"></app-search>
+<app-search (searchValue)="processPokemons(undefined, $event)"></app-search>
 
 <div class="container">
   <div class="row">
     <app-card class="col" *ngFor="let pokemon of pokemons" [pokemon]="pokemon"></app-card>
 
-    <mat-paginator #paginator
-    (page)="handlePageEvent($event)"
-    [length]="pokemonLenght"
-    [pageSizeOptions]="[10, 25, 50, 75, 100]"
-    [pageSize]="10"
-    [pageIndex]="0"></mat-paginator>
+    <app-paginator
+      [length]="pokemonLenght"
+      (onPageEvent)="handlePageEvent($event)"
+      (onPaginator)="paginator = $event"></app-paginator>
   </div>
 </div>

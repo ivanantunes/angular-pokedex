@@ -20,10 +20,8 @@
           </div>
 
         </div>
-        <button mat-icon-button color="warn" (click)="onFavorite()">
-          <mat-icon *ngIf="!isFavorite">favorite_border</mat-icon>
-          <mat-icon *ngIf="isFavorite">favorite</mat-icon>
-        </button>
+
+        <app-button-favorite [pokemonId]="pokemon.id"></app-button-favorite>
       </div>
 
       <!-- ! Container Carousel Pokemon Image -->
@@ -66,18 +64,64 @@
 
     </div>
 
+    <div class="col poke-card-base">
 
-    <div class="col">
+      <!-- ! Container Header -->
+      <div class="poke-card-header">
+        <div>
+          <p><strong>Base Stats</strong></p>
+        </div>
+      </div>
 
-      <!-- <mat-card>
-        <p>weight: {{pokemon.weight}}</p>
-        <p>height: {{pokemon.height}}</p>
-        <p>Abilities: <span *ngFor="let abilities of pokemon.abilities">{{abilities.ability.name}},</span></p>
-      </mat-card>
+      <div>
+        <ngx-charts-bar-horizontal
+          [scheme]="colorScheme"
+          [results]="results"
+          [animations]="true"
+          [yAxis]="true"
+          [showDataLabel]="true"
+          [tooltipDisabled]="true"
+          [roundEdges]="true"
+          [xScaleMax]="xScaleMax"
+        >
+        </ngx-charts-bar-horizontal>
+      </div>
 
-      <mat-card>
+    </div>
 
-      </mat-card> -->
+  </div>
+
+  <div class="row">
+
+    <div class="col poke-card-base" style="min-height: auto !important;">
+
+      <!-- ! Container Header -->
+      <div class="poke-card-header">
+        <div>
+          <p><strong>Damage Taken</strong></p>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div *ngFor="let damage of damages" class="col poke-card-damange" [ngClass]="{
+          'poke-card-damange-2x': damage.value === 2,
+          'poke-card-damange-05x': damage.value === 0.5,
+          'poke-card-damange-025x': damage.value === 0.25,
+          'poke-card-damange-1x': damage.value === 1
+        }">
+          <div class="row" style="align-items: center;">
+            <div class="col">
+              <img [src]="'assets/img/icon-types/'+ damage.name + '.svg'" alt="Type {{damage.name}}" width="40" height="40">
+            </div>
+            <div class="col">
+              <p>{{damage.name}}</p>
+              <p style="font-size: 20px;"><strong>{{damage.value}}</strong></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
   </div>
