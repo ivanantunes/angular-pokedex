@@ -3,11 +3,17 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { PageIndex, PageSize, PageSizeOptions } from 'src/app/constants';
 
 @Component({
-    selector: 'app-paginator',
-    templateUrl: './paginator.component.html',
-    styleUrl: './paginator.component.scss',
-    standalone: true,
-    imports: [MatPaginator]
+  selector: 'app-paginator',
+  template: `
+      <mat-paginator #paginator
+      (page)="onPageEvent.emit($event)"
+      [length]="length"
+      [pageSizeOptions]="pageSizeOptions"
+      [pageSize]="pageSizeDefault"
+      [pageIndex]="pageIndex"></mat-paginator>
+    `,
+  standalone: true,
+  imports: [MatPaginator]
 })
 export class PaginatorComponent implements AfterViewInit {
   @Input() length = 0;
