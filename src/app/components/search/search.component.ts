@@ -11,7 +11,17 @@ import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field'
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
     standalone: true,
-    imports: [MatFormField, MatLabel, MatInput, FormsModule, MatIconButton, MatSuffix, MatIcon]
+    imports: [
+      FormsModule,
+
+      // ! Modules
+      MatFormField,
+      MatLabel,
+      MatInput,
+      MatIconButton,
+      MatSuffix,
+      MatIcon
+    ]
 })
 export class SearchComponent {
   public searchEvent = new Subject<void>();
