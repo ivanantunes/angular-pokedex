@@ -13,9 +13,8 @@ export class RequestService {
   ) { }
 
   public getPokemons(url?: string, search?: string, pageSize?: number): Observable<any> {
-    const defaultUrl = `https://pokeapi.co/api/v2/pokemon/${search ?? ''}?limit=${pageSize ?? PageSize }&offset=0`;
-
-    return this.http.get<any>(url || defaultUrl);
+    const defaultUrl = `https://pokeapi.co/api/v2/pokemon/${search ?? ''}?limit=${pageSize ?? PageSize}&offset=0`;
+    return this.http.get<any>(url ?? defaultUrl);
   }
 
   public get pokemonTypes(): Observable<PokemonTypeObject> {

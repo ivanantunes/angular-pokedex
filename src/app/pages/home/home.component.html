@@ -1,13 +1,27 @@
-<app-loading *ngIf="loading"></app-loading>
+@if (loading) {
+  <app-loading />
+}
+
 <app-search (searchValue)="processPokemons(undefined, $event)"></app-search>
 
-<div class="container">
-  <div class="row">
-    <app-card class="col" *ngFor="let pokemon of pokemons" [pokemon]="pokemon"></app-card>
+<section class="container">
+  <section class="row">
+
+    @for (pokemon of pokemons; track pokemon.id) {
+      @defer (on viewport) {
+        <app-card class="col" [pokemon]="pokemon" />
+      } @placeholder {
+        <p>Loading...</p>
+      }
+    } @empty {
+      <p>Not Found Pokémon!</p>
+    }
 
     <app-paginator
       [length]="pokemonLenght"
       (onPageEvent)="handlePageEvent($event)"
-      (onPaginator)="paginator = $event"></app-paginator>
-  </div>
-</div>
+      (onPaginator)="paginator = $event" />
+
+  </section>
+
+</section>

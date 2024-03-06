@@ -17,7 +17,16 @@ import { NgIf, NgFor } from '@angular/common';
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
     standalone: true,
-    imports: [NgIf, LoadingComponent, SearchComponent, NgFor, CardComponent, PaginatorComponent]
+    imports: [
+      NgIf,
+      NgFor,
+
+      // ! Components
+      LoadingComponent,
+      SearchComponent,
+      CardComponent,
+      PaginatorComponent
+    ]
 })
 export class HomeComponent implements AfterViewInit {
   public pokemons: Pokemon[] = [];
@@ -35,8 +44,19 @@ export class HomeComponent implements AfterViewInit {
 
   public handlePageEvent(event: PageEvent): void {
     if (event.pageIndex > (event.previousPageIndex || 0)) {
+
+      if (this.nextPageUrl) {
+        this.nextPageUrl = this.nextPageUrl.substring(0, this.nextPageUrl.length - 2);
+        this.nextPageUrl += this.pageSize;
+      }
+
       this.processPokemons(this.nextPageUrl, this.search);
     } else {
+      if (this.previousPageUrl) {
+        this.previousPageUrl = this.previousPageUrl.substring(0, this.previousPageUrl.length - 2);
+        this.previousPageUrl += this.pageSize;
+      }
+
       this.processPokemons(this.previousPageUrl, this.search);
     }
   }
@@ -105,6 +125,7 @@ export class HomeComponent implements AfterViewInit {
       },
       error: (error) => {
         this.loading = false;
+        this.pokemons = [];
         this.toastr.error(`Failed to Load Pokemons :(`, 'Error Load Pokemons', ToastrConfig);
       }
     })
