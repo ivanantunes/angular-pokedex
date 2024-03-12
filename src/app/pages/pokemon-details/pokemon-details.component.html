@@ -126,4 +126,31 @@
 
   </div>
 
+  <div class="row" *ngIf="evolutionChain">
+
+    <div class="col poke-card-base" style="min-height: auto !important;">
+      <!-- ! Container Header -->
+      <div class="poke-card-header">
+        <div>
+          <p><strong>Evolution Chain</strong></p>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col" *ngFor="let evolution of evolutionChain; let last = last;">
+
+          <a href="/pokemon/details/{{evolution.id}}">
+            <p>{{evolution.name}}</p>
+            <img [src]="evolution.sprites.front_default">
+            <mat-icon *ngIf="!last">arrow_forward</mat-icon>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
 </div>

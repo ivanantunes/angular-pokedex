@@ -1,7 +1,6 @@
 import { CrudFilter, CrudSchema } from '../interfaces';
 
 export abstract class CrudBase<X> {
-
   abstract get schema(): CrudSchema;
 
   abstract create(object: any): Promise<X>;

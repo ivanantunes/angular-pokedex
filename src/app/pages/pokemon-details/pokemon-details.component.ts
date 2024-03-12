@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, RouterLink} from '@angular/router';
 import { concat, firstValueFrom, map, merge, switchMap, toArray } from 'rxjs';
 import { Location, NgIf, NgFor, NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -11,13 +11,27 @@ import { FavoriteView } from 'src/app/view';
 import { BarChartModule } from '@swimlane/ngx-charts';
 import { ButtonFavoriteComponent } from '../../components/button-favorite/button-favorite.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { CardComponent } from 'src/app/components/card/card.component';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-pokemon-details',
     templateUrl: './pokemon-details.component.html',
     styleUrls: ['./pokemon-details.component.scss'],
     standalone: true,
-    imports: [NgIf, LoadingComponent, NgFor, ButtonFavoriteComponent, NgClass, BarChartModule]
+    imports: [
+      NgIf,
+      NgFor,
+      NgClass,
+      RouterLink,
+      BarChartModule,
+      MatIcon,
+
+      // ! Components
+      LoadingComponent,
+      ButtonFavoriteComponent,
+      CardComponent
+    ]
 })
 export class PokemonDetailsComponent implements OnInit {
 
@@ -37,6 +51,7 @@ export class PokemonDetailsComponent implements OnInit {
 
   // ! Types Damage
   public damages: { name: string, value: number }[] = [];
+  public evolutionChain?: Pokemon[];
 
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
@@ -77,6 +92,7 @@ export class PokemonDetailsComponent implements OnInit {
 
       // await firstValueFrom(this.pokemonTypeChart());
       this.pokemonTypeChart()
+      await this.setupEvolutionChain();
 
       this.loading = false;
     } catch (error) {
@@ -213,5 +229,59 @@ export class PokemonDetailsComponent implements OnInit {
       next: (result) => this.damages = result,
       error: (error) => console.log(error)
     })
+  }
+
+  public recurseEvolutionTo(evolves_to: any[]): { name: string, url: string }[]  {
+    if (evolves_to.length > 0) {
+      const listOfLinks: { name: string, url: string }[] = [];
+      evolves_to.forEach((r) => {
+        if (r.species) {
+          listOfLinks.push(r.species);
+        }
+
+        if (r.evolves_to && r.evolves_to.length > 0) {
+          listOfLinks.push(...this.recurseEvolutionTo(r.evolves_to));
+        }
+      });
+
+      return listOfLinks;
+    }
+
+    return [];
+  }
+
+  public async setupEvolutionChain(): Promise<void> {
+    if (!this.pokemon) {
+      return Promise.reject('Not Found Pokemon');
+    }
+
+    this.evolutionChain = await firstValueFrom(this.http.get<any>(this.pokemon.species.url).pipe(
+      switchMap((species) => {
+        const urlSplit = (species.evolution_chain.url as string).split('/');
+        const id = urlSplit[urlSplit.length - 2];
+
+        return this.http.get<any>(`https://pokeapi.co/api/v2/evolution-chain/${id}`)
+      }),
+      map((evolution) => {
+        const listOfLinks: { name: string, url: string }[] = [];
+
+        listOfLinks.push(evolution.chain.species);
+
+        if (evolution.chain.evolves_to && evolution.chain.evolves_to.length > 0) {
+          listOfLinks.push(...this.recurseEvolutionTo(evolution.chain.evolves_to))
+        }
+
+        return listOfLinks;
+      }),
+      switchMap((list) => {
+        return concat(...list.map((l) => {
+          return this.request.getPokemons(`https://pokeapi.co/api/v2/pokemon/${l.name}`);
+        })).pipe(
+          toArray()
+        )
+      })
+    ));
+
+    console.log(this.evolutionChain);
   }
 }
