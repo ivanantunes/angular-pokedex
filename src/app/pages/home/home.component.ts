@@ -46,15 +46,17 @@ export class HomeComponent implements AfterViewInit {
     if (event.pageIndex > (event.previousPageIndex || 0)) {
 
       if (this.nextPageUrl) {
-        this.nextPageUrl = this.nextPageUrl.substring(0, this.nextPageUrl.length - 2);
-        this.nextPageUrl += this.pageSize;
+        const nextPageUrl = new URL(this.nextPageUrl);
+        nextPageUrl.searchParams.set('limit', this.pageSize.toString());
+        this.nextPageUrl = nextPageUrl.toString();
       }
 
       this.processPokemons(this.nextPageUrl, this.search);
     } else {
       if (this.previousPageUrl) {
-        this.previousPageUrl = this.previousPageUrl.substring(0, this.previousPageUrl.length - 2);
-        this.previousPageUrl += this.pageSize;
+        const previousPageUrl = new URL(this.previousPageUrl);
+        previousPageUrl.searchParams.set('limit', this.pageSize.toString());
+        this.previousPageUrl = previousPageUrl.toString();
       }
 
       this.processPokemons(this.previousPageUrl, this.search);
