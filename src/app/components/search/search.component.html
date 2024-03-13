@@ -1,9 +1,0 @@
-<section class="container poke-search-container">
-  <mat-form-field appearance="outline" color="warn" class="poke-search-input-search">
-    <mat-label>Search by Name or Code</mat-label>
-    <input matInput type="text" (keyup)="searchEvent.next()" [(ngModel)]="search">
-    <button matSuffix mat-icon-button aria-label="Search" (click)="this.searchValue.next(this.search)">
-      <mat-icon>search</mat-icon>
-    </button>
-  </mat-form-field>
-</section>

@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
-    selector: 'app-loading',
+    selector: 'atom-loading',
     template: `
-      <section class="loading">
+      <section class="loading__section">
         <mat-spinner color="warn"></mat-spinner>
       </section>
     `,
     styles: `
-      .loading {
+      .loading__section {
         position: fixed;
         top: 0;
         left: 0;
@@ -25,4 +25,4 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     standalone: true,
     imports: [MatProgressSpinner]
 })
-export class LoadingComponent { }
+export class AtomLoadingComponent { }

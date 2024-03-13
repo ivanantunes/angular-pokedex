@@ -1,8 +1,8 @@
 @if (loading) {
-  <app-loading />
+  <atom-loading />
 }
 
-<app-search (searchValue)="processPokemons(undefined, $event)"></app-search>
+<!-- <app-search (searchValue)="processPokemons(undefined, $event)"></app-search> -->
 
 <section class="container">
   <section class="row">
@@ -17,7 +17,7 @@
       <p>Not Found Pokémon!</p>
     }
 
-    <app-paginator
+    <atom-paginator
       [length]="pokemonLenght"
       (onPageEvent)="handlePageEvent($event)"
       (onPaginator)="paginator = $event" />

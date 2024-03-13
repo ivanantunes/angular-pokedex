@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Pokemon } from 'src/app/interfaces';
-import { ButtonFavoriteComponent } from '../button-favorite/button-favorite.component';
+import { AtomButtonFavoriteComponent } from '../../atoms/atom-button-favorite/atom-button-favorite.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
@@ -21,7 +21,7 @@ import { NgClass, NgFor } from '@angular/common';
     MatTooltip,
     MatIcon,
     // ! Components
-    ButtonFavoriteComponent
+    AtomButtonFavoriteComponent
   ]
 })
 export class CardComponent {

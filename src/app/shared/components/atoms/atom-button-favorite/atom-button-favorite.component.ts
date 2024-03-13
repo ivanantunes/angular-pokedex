@@ -9,7 +9,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 
 @Component({
-    selector: 'app-button-favorite',
+    selector: 'atom-button-favorite',
     template: `
       <button mat-icon-button color="warn" (click)="onFavorite()" [matTooltip]="isFavorite ? 'Click to Unfavorite :(' : 'Click to Favorite!'">
         @if (isFavorite) {
@@ -29,7 +29,7 @@ import { MatIconButton } from '@angular/material/button';
       MatIcon
   ]
 })
-export class ButtonFavoriteComponent implements AfterViewInit {
+export class AtomButtonFavoriteComponent implements AfterViewInit {
 
   @Input() pokemonId = 0;
 

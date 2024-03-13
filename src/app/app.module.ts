@@ -14,11 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 // ! Components
 import { HeaderComponent } from './components/header/header.component';
-import { SearchComponent } from './components/search/search.component';
-import { LoadingComponent } from './components/loading/loading.component';
-import { CardComponent } from './components/card/card.component';
-import { ButtonFavoriteComponent } from './components/button-favorite/button-favorite.component';
-import { PaginatorComponent } from './components/paginator/paginator.component';
+import { CardComponent } from './shared/components/organisms/card/card.component';
 
 // ! Pages
 import { AppComponent } from './app.component';
@@ -38,6 +34,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MoleculeSearchComponent } from './shared/components/molecules/molecule-search/molecule-search.component';
 
 @NgModule({
   declarations: [
@@ -71,13 +68,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule,
     // ! Components
     HeaderComponent,
-    SearchComponent,
-    LoadingComponent,
     CardComponent,
-    ButtonFavoriteComponent,
-    PaginatorComponent,
     PokemonDetailsComponent,
-    HomeComponent
+    HomeComponent,
+    // ? Molecules
+    MoleculeSearchComponent
+
   ],
   providers: [],
   bootstrap: [AppComponent]

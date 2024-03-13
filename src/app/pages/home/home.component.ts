@@ -6,10 +6,9 @@ import { Pokemon } from '../../interfaces';
 import { PageSize, ToastrConfig } from 'src/app/constants';
 import { RequestService } from 'src/app/services';
 import { ToastrService } from 'ngx-toastr';
-import { PaginatorComponent } from '../../components/paginator/paginator.component';
-import { CardComponent } from '../../components/card/card.component';
-import { SearchComponent } from '../../components/search/search.component';
-import { LoadingComponent } from '../../components/loading/loading.component';
+import { AtomPaginatorComponent } from '../../shared/components/atoms/atom-paginator/atom-paginator.component';
+import { CardComponent } from '../../shared/components/organisms/card/card.component';
+import { AtomLoadingComponent } from '../../shared/components/atoms/atom-loading/atom-loading.component';
 import { NgIf, NgFor } from '@angular/common';
 
 @Component({
@@ -22,10 +21,9 @@ import { NgIf, NgFor } from '@angular/common';
       NgFor,
 
       // ! Components
-      LoadingComponent,
-      SearchComponent,
+      AtomLoadingComponent,
       CardComponent,
-      PaginatorComponent
+      AtomPaginatorComponent
     ]
 })
 export class HomeComponent implements AfterViewInit {

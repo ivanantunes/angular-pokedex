@@ -9,9 +9,9 @@ import { ToastrConfig } from '../../constants';
 import { DatabaseService, RequestService } from 'src/app/services';
 import { FavoriteView } from 'src/app/view';
 import { BarChartModule } from '@swimlane/ngx-charts';
-import { ButtonFavoriteComponent } from '../../components/button-favorite/button-favorite.component';
-import { LoadingComponent } from '../../components/loading/loading.component';
-import { CardComponent } from 'src/app/components/card/card.component';
+import { AtomButtonFavoriteComponent } from '../../shared/components/atoms/atom-button-favorite/atom-button-favorite.component';
+import { AtomLoadingComponent } from '../../shared/components/atoms/atom-loading/atom-loading.component';
+import { CardComponent } from 'src/app/shared/components/organisms/card/card.component';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -28,8 +28,8 @@ import { MatIcon } from '@angular/material/icon';
       MatIcon,
 
       // ! Components
-      LoadingComponent,
-      ButtonFavoriteComponent,
+      AtomLoadingComponent,
+      AtomButtonFavoriteComponent,
       CardComponent
     ]
 })
