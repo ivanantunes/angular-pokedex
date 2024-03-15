@@ -1,15 +1,11 @@
 <section class="col poke-card"  [ngClass]="pokemon.types[0].type.name">
-  <section class="poke-card-container-action">
-    <button  mat-icon-button routerLink="/pokemon/details/{{pokemon.id}}" matTooltip="Click to More Info!">
-      <mat-icon>info</mat-icon>
-    </button>
 
-    <atom-button-favorite [pokemonId]="pokemon.id" />
-  </section>
+  <molecule-actions-default-pokemon [pokemonId]="pokemon.id" />
 
-  <section class="poke-card-container-image">
+  <molecule-image-circle-pokemon [pokemon]="pokemon" />
+  <!-- <section class="poke-card-container-image">
     <img [src]="pokemon.sprites.other['official-artwork'].front_default" [alt]="'Image ' + pokemon.name">
-  </section>
+  </section> -->
 
   <section class="poke-card-container-info">
 

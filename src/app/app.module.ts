@@ -13,7 +13,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AppRoutingModule } from './app-routing.module';
 
 // ! Components
-import { HeaderComponent } from './components/header/header.component';
 import { CardComponent } from './shared/components/organisms/card/card.component';
 
 // ! Pages
@@ -35,6 +34,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MoleculeSearchComponent } from './shared/components/molecules/molecule-search/molecule-search.component';
+import { OrganismHeaderComponent } from './shared/components/organisms/organism-header/organism-header.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +67,7 @@ import { MoleculeSearchComponent } from './shared/components/molecules/molecule-
     MatProgressSpinnerModule,
     MatSelectModule,
     // ! Components
-    HeaderComponent,
+    OrganismHeaderComponent,
     CardComponent,
     PokemonDetailsComponent,
     HomeComponent,

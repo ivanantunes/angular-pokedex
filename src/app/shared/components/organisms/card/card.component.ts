@@ -6,6 +6,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 import { NgClass, NgFor } from '@angular/common';
+import { MoleculeActionsDefaultPokemonComponent, MoleculeImageCirclePokemonComponent } from '../../molecules';
 
 @Component({
   selector: 'app-card',
@@ -21,7 +22,8 @@ import { NgClass, NgFor } from '@angular/common';
     MatTooltip,
     MatIcon,
     // ! Components
-    AtomButtonFavoriteComponent
+    MoleculeActionsDefaultPokemonComponent,
+    MoleculeImageCirclePokemonComponent
   ]
 })
 export class CardComponent {

@@ -1,0 +1,24 @@
+.circle__section {
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 1.4rem;
+}
+
+.circle__section::before {
+  content: "";
+  width: 16.5rem;
+  height: 16.5rem;
+  border-radius: 50%;
+  position: absolute;
+  z-index: -1;
+  // TODO: Remove Line After Test
+  background-color: rgba(141, 141, 141, 0.2);
+}
+
+.circle__section .circle__atom-image-pokemon {
+  scale: 2.5;
+}
