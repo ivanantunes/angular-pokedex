@@ -1,0 +1,101 @@
+$normal: rgba(141, 141, 141, 0.2);
+
+$grass: #D6EBDC;
+
+$water: #DFECF5;
+
+$fire: #FFEBCA;
+
+$fighting: rgba(196, 77, 97, 0.2);
+
+$flying: #758CBD;
+
+$poison: rgba(172, 106, 202, 0.2);
+
+$ground: rgba(203, 119, 74, 0.2);
+
+$rock: rgba(134, 203, 190, 0.2);
+
+$bug: rgba(131, 158, 56, 0.2);
+
+$ghost: rgba(97, 110, 183, 0.2);
+
+$steel: rgba(101, 148, 161, 0.2);
+
+$electric: rgba(207, 190, 93, 0.2);
+
+$psychic: rgba(235, 140, 133, 0.2);
+
+$dragon: rgba(70, 105, 153, 0.2);
+
+$dark: rgba(61, 60, 63, 0.2);
+
+$fairy: rgba(221, 138, 220, 0.2);
+
+.normal::before {
+  background-color: $normal;
+}
+
+.grass::before {
+  background-color: $grass;
+}
+
+.water::before {
+  background-color: $water;
+}
+
+.fire::before {
+  background-color: $fire;
+}
+
+.fighting::before {
+  background-color: $fighting;
+}
+
+.flying::before {
+  background-color: $flying;
+}
+
+.poison::before {
+  background-color: $poison;
+}
+
+.ground::before {
+  background-color: $ground;
+}
+
+.rock::before {
+  background-color: $rock;
+}
+
+.bug::before {
+  background-color: $bug;
+}
+
+.ghost::before {
+  background-color: $ghost;
+}
+
+.steel::before {
+  background-color: $steel;
+}
+
+.electric::before {
+  background-color: $electric;
+}
+
+.psychic {
+  background-color: $psychic;
+}
+
+.dragon::before {
+  background-color: $dragon;
+}
+
+.dark::before {
+  background-color: $dark;
+}
+
+.fairy::before {
+  background-color: $fairy;
+}

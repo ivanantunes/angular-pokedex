@@ -1,3 +1,5 @@
+@import '../../../styles/color-types.scss';
+
 .circle__section {
   width: 20rem;
   height: 20rem;
@@ -15,8 +17,6 @@
   border-radius: 50%;
   position: absolute;
   z-index: -1;
-  // TODO: Remove Line After Test
-  background-color: rgba(141, 141, 141, 0.2);
 }
 
 .circle__section .circle__atom-image-pokemon {
