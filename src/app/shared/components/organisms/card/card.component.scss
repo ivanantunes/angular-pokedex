@@ -13,6 +13,13 @@
   box-shadow: 0px 10px 51px -5px rgba(183, 189, 193, 0.7);
 }
 
+.info__section {
+  display: flex;
+  padding: 0 2.8rem;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
 .poke-card .poke-card-container-action {
   display: flex;
   justify-content: end;

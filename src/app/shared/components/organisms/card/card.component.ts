@@ -1,12 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Pokemon } from 'src/app/interfaces';
-import { AtomButtonFavoriteComponent } from '../../atoms/atom-button-favorite/atom-button-favorite.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 import { NgClass, NgFor } from '@angular/common';
-import { MoleculeActionsDefaultPokemonComponent, MoleculeImageCirclePokemonComponent } from '../../molecules';
+import { MoleculeActionsDefaultPokemonComponent, MoleculeImageCirclePokemonComponent, MoleculeTextPokemonReferenceComponent } from '../../molecules';
 
 @Component({
   selector: 'app-card',
@@ -23,12 +22,30 @@ import { MoleculeActionsDefaultPokemonComponent, MoleculeImageCirclePokemonCompo
     MatIcon,
     // ! Components
     MoleculeActionsDefaultPokemonComponent,
-    MoleculeImageCirclePokemonComponent
+    MoleculeImageCirclePokemonComponent,
+    MoleculeTextPokemonReferenceComponent
   ]
 })
 export class CardComponent {
 
   @Input() pokemon!: Pokemon;
+
+  public styleObjectCode = {
+    'display': 'block',
+    'text-align': 'left',
+    'font-weight': 500,
+    'font-size': '1.3rem',
+    'line-height': '150%',
+    'color': '#7a7d80',
+    'margin-bottom': '0.6rem'
+  };
+
+  public styleObjectName = {
+    'font-weight': 600,
+    'font-size': '1.8rem',
+    'line-height': '150%',
+    'color': '#2f3133'
+  }
 
   constructor(
     private route: Router

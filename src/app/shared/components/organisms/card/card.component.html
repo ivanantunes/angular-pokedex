@@ -4,18 +4,20 @@
 
   <molecule-image-circle-pokemon [pokemon]="pokemon" />
 
-  <section class="poke-card-container-info">
+  <section class="info__section">
+    <molecule-text-pokemon-reference
+      [pokemonId]="pokemon.id"
+      [pokemonName]="pokemon.name"
+      [styleObjectCode]="styleObjectCode"
+      [styleObjectName]="styleObjectName"
+    />
 
-    <section>
-      <p class="pokemon-info-id">#{{pokemon.id.toString().padStart(4, '0')}}</p>
-      <strong><p>{{pokemon.name}}</p></strong>
-    </section>
-
+    <!--
     <section class="poke-card-container-info-icon">
       @for (objectType of pokemon.types; track $index) {
         <img src="assets/img/icon-types/{{objectType.type.name}}.svg" alt="Type {{objectType.type.name}}" />
       }
-    </section>
+    </section> -->
 
   </section>
 
