@@ -8,6 +8,4 @@ import { Component } from '@angular/core';
     <img src="assets/img/logo.svg" alt="Pokémon Logo">
   `
 })
-export class AtomImageLogoComponent {
-
-}
+export class AtomImageLogoComponent { }

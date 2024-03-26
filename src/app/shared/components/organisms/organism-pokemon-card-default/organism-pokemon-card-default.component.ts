@@ -5,12 +5,11 @@ import {
   MoleculeTextPokemonReferenceComponent,
   MoleculeImagePokemonTypesComponent
 } from '../../molecules';
-import { CommonModule, NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { IPokemon } from '../../../interfaces';
 import { PokemonRequestService } from '../../../services';
 import { ToastrService } from 'ngx-toastr';
-import { ToastrConfig } from 'src/app/shared/constants';
-import { Subject } from 'rxjs';
+import { TitleFailedLog, ToastrConfig } from '../../../constants';
 
 @Component({
   selector: 'organism-pokemon-card-default',
@@ -20,7 +19,6 @@ import { Subject } from 'rxjs';
   imports: [
     // ! Angular
     CommonModule,
-    NgClass,
     // ! Molecules
     MoleculeActionsDefaultPokemonComponent,
     MoleculeImageCirclePokemonComponent,
@@ -62,8 +60,8 @@ export class OrganismPokemonCardDefaultComponent implements OnInit {
         this.pokemon = pokemon;
       },
       error: (error) => {
-        console.error('Failed to Loading Pokémon', error);
-        this.toast.error('Failed to Loading Pokémon, Please Try Again.', 'Failed to Loading :(', ToastrConfig);
+        console.error(TitleFailedLog.loading, error);
+        this.toast.error('Failed to Loading Pokémon, Please Try Again.', TitleFailedLog.loading, ToastrConfig);
       }
     })
   }

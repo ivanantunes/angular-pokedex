@@ -5,6 +5,7 @@ import { AtomButtonFavoriteComponent, AtomButtonInfoComponent } from '../../atom
   selector: 'molecule-actions-default-pokemon',
   standalone: true,
   imports: [
+    // ! Atoms
     AtomButtonFavoriteComponent,
     AtomButtonInfoComponent
   ],

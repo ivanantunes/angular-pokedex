@@ -5,6 +5,7 @@ import { Component, Input } from '@angular/core';
   selector: 'atom-text-pokemon-name',
   standalone: true,
   imports: [
+    // ! Angular
     NgStyle
   ],
   template: `

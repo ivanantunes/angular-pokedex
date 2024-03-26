@@ -8,6 +8,7 @@ import { Subject, debounceTime } from 'rxjs';
   selector: 'atom-input-search',
   standalone: true,
   imports: [
+    // ! Angular
     FormsModule,
 
     // ! Material

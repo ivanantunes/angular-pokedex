@@ -4,7 +4,6 @@ import { concat, firstValueFrom, map, merge, switchMap, toArray } from 'rxjs';
 import { Location, NgIf, NgFor, NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { ToastrConfig } from '../../constants';
 import { DatabaseService, RequestService } from 'src/app/services';
 import { FavoriteView } from 'src/app/view';
 import { BarChartModule } from '@swimlane/ngx-charts';
@@ -12,6 +11,7 @@ import { AtomButtonFavoriteComponent } from '../../shared/components/atoms/atom-
 import { AtomLoadingComponent } from '../../shared/components/atoms/atom-loading/atom-loading.component';
 import { OrganismPokemonCardDefaultComponent } from 'src/app/shared/components/organisms/organism-pokemon-card-default/organism-pokemon-card-default.component';
 import { MatIcon } from '@angular/material/icon';
+import { ToastrConfig } from 'src/app/shared/constants';
 
 @Component({
     selector: 'app-pokemon-details',

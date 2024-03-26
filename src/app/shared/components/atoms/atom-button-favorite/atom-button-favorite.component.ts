@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { ToastrConfig } from 'src/app/constants';
+import { FaceExpressionsLog, TitleFailedLog, ToastrConfig } from '../../../constants';
 import { DatabaseService } from 'src/app/services';
 import { FavoriteView } from 'src/app/view';
 import { MatIcon } from '@angular/material/icon';
@@ -21,8 +21,8 @@ import { MatIconButton } from '@angular/material/button';
     `,
     standalone: true,
     imports: [
+      // ! Angular
       NgIf,
-
       // ! Material
       MatIconButton,
       MatTooltip,
@@ -39,7 +39,7 @@ export class AtomButtonFavoriteComponent implements AfterViewInit {
 
   constructor(
     private databaseService: DatabaseService,
-    private toastrService: ToastrService,
+    private toastr: ToastrService,
   ) { }
 
   public async ngAfterViewInit(): Promise<void> {
@@ -50,9 +50,11 @@ export class AtomButtonFavoriteComponent implements AfterViewInit {
         this.isFavorite = favoritePokemon[0].pokemonId === this.pokemonId;
       }
     } catch (error) {
-      this.toastrService.error(
-        'Failed to Check Favorite Pokemon.',
-        'Load Favorite Error :(',
+      console.error(TitleFailedLog.loading, error);
+
+      this.toastr.error(
+        'Failed to Check Favorite Pokémon.',
+        TitleFailedLog.loading,
         ToastrConfig
       );
     }
@@ -64,26 +66,28 @@ export class AtomButtonFavoriteComponent implements AfterViewInit {
 
       if (favorite.length > 0 && favorite[0].pokemonId === this.pokemonId) {
         await this.favoriteView.delete(favorite[0].id);
-        this.toastrService.warning(
-          'Success on Removed Pokemon to Favorite!',
-          'Removed Favorite Warning :O',
+        this.toastr.warning(
+          'Success in Removing Pokémon from Favorite!',
+          `Removed Favorite Warning ${FaceExpressionsLog.warning}`,
           ToastrConfig
         );
         this.isFavorite = false;
       } else {
         await this.favoriteView.create({ pokemonId: this.pokemonId });
-        this.toastrService.success(
+        this.toastr.success(
           'Success on Added Pokemon to Favorite!',
-          'Added Favorite Success ;)',
+          `Added on Favorite with Success ${FaceExpressionsLog.success}`,
           ToastrConfig
         );
         this.isFavorite = true;
       }
 
     } catch (error) {
-      this.toastrService.error(
+      console.error(TitleFailedLog.favorite, error);
+
+      this.toastr.error(
         'Failed to Favorite Pokemon.',
-        'Favorite Error :(',
+        TitleFailedLog.favorite,
         ToastrConfig
       );
     }

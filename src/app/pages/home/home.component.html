@@ -2,10 +2,11 @@
   <atom-loading />
 }
 
-<!-- <app-search (searchValue)="processPokemons(undefined, $event)"></app-search> -->
-<!-- <molecule-search /> -->
-
 <section class="container">
+
+  <section class="mt-4">
+    <molecule-search (searchEvent)="processPokemons(undefined, $event)" />
+  </section>
 
   <section class="row">
 

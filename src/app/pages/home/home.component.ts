@@ -1,15 +1,15 @@
-import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { map } from 'rxjs';
-import { PageSize, ToastrConfig } from 'src/app/constants';
 import { ToastrService } from 'ngx-toastr';
 import { AtomPaginatorComponent } from '../../shared/components/atoms/atom-paginator/atom-paginator.component';
 import { OrganismPokemonCardDefaultComponent } from '../../shared/components/organisms/organism-pokemon-card-default/organism-pokemon-card-default.component';
 import { AtomLoadingComponent } from '../../shared/components/atoms/atom-loading/atom-loading.component';
 import { NgIf, NgFor } from '@angular/common';
-import { MoleculeSearchComponent } from 'src/app/shared/components/molecules';
+import { MoleculeSearchComponent } from '../../shared/components/molecules';
 import { PokemonRequestService } from '../../shared/services';
+import { ISearchModel } from '../../shared/interfaces';
+import { PageSize, TitleFailedLog, ToastrConfig } from '../../shared/constants';
 
 @Component({
     selector: 'app-home',
@@ -17,6 +17,7 @@ import { PokemonRequestService } from '../../shared/services';
     styleUrl: './home.component.scss',
     standalone: true,
     imports: [
+      // ! Angular
       NgIf,
       NgFor,
 
@@ -34,14 +35,24 @@ import { PokemonRequestService } from '../../shared/services';
 export class HomeComponent implements AfterViewInit {
 
   public pokemonIds: string[] = [];
+  public loading = false;
+  public paginator?: MatPaginator;
+  public pokemonLenght = 0;
 
   private nextPageUrl = '';
   private previousPageUrl = '';
-  public pokemonLenght = 0;
-  private search?: string = '';
-  public loading = false;
+  private search?: ISearchModel = { search: '', type: '' };
 
-  public paginator?: MatPaginator;
+  constructor(
+    private pokemonRequest: PokemonRequestService,
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService
+  ) { }
+
+  public ngAfterViewInit(): void {
+    this.processPokemons();
+    this.cdr.detectChanges();
+  }
 
   private get pageSize(): number {
     return this.paginator?.pageSize ?? PageSize;
@@ -68,17 +79,6 @@ export class HomeComponent implements AfterViewInit {
     }
   }
 
-  constructor(
-    private pokemonRequest: PokemonRequestService,
-    private cdr: ChangeDetectorRef,
-    private toastr: ToastrService
-  ) { }
-
-  ngAfterViewInit(): void {
-    this.processPokemons();
-    this.cdr.detectChanges();
-  }
-
   private setupListOfLinks(data: any): any {
     if (data.results) {
       this.nextPageUrl = data.next;
@@ -89,7 +89,7 @@ export class HomeComponent implements AfterViewInit {
       this.pokemonLenght = 1;
       this.nextPageUrl = '';
       this.previousPageUrl = '';
-      return data;
+      return [data];
     }
   }
 
@@ -101,11 +101,11 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
-  public processPokemons(url?: string, search?: string): void {
+  public processPokemons(url?: string, search?: ISearchModel): void {
     this.loading = true;
     this.search = search;
 
-    this.pokemonRequest.getPokemons(url, this.search, this.pageSize).pipe(
+    this.pokemonRequest.getPokemons(url, this.search?.search, this.pageSize).pipe(
       map((response) => this.setupListOfLinks(response)),
       map((response: { name: string, url: string }[]) => response.map((row: { name: string, url: string }) => row.name))
     ).subscribe({
@@ -115,10 +115,10 @@ export class HomeComponent implements AfterViewInit {
         this.loading = false;
       },
       error: (error) => {
-        console.error('Failed to Loading :(', error);
+        console.error(TitleFailedLog.loading, error);
         this.loading = false;
         this.pokemonIds = [];
-        this.toastr.error(`Failed to Loading Pokémons, Please Try Again.`, 'Failed to Loading :(', ToastrConfig);
+        this.toastr.error(`Failed to Loading Pokémons, Please Try Again.`, TitleFailedLog.loading, ToastrConfig);
       }
     })
   }

@@ -5,6 +5,7 @@ import { AtomTextPokemonCodeComponent, AtomTextPokemonNameComponent } from '../.
   selector: 'molecule-text-pokemon-reference',
   standalone: true,
   imports: [
+    // ! Atoms
     AtomTextPokemonCodeComponent,
     AtomTextPokemonNameComponent
   ],

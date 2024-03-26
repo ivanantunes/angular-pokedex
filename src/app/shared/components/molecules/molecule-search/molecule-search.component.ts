@@ -7,20 +7,21 @@ import { ISearchModel } from '../../../interfaces';
   selector: 'molecule-search',
   standalone: true,
   imports: [
+    // ! Atoms
     AtomButtonSearchComponent,
     AtomInputSearchComponent
   ],
   templateUrl: './molecule-search.component.html',
 })
 export class MoleculeSearchComponent {
+  @Output() searchEvent = new Subject<ISearchModel>();
+
   public value: ISearchModel = {
     search: '',
     type: ''
   };
 
   public searchValue = new Subject<string>();
-
-  @Output() searchEvent = new Subject<ISearchModel>();
 
   constructor() {
     this.searchValue.subscribe((value) => {

@@ -32,6 +32,8 @@ $dark: rgba(61, 60, 63, 0.2);
 
 $fairy: rgba(221, 138, 220, 0.2);
 
+$ice: #b3d8fa;
+
 .normal::before {
   background-color: $normal;
 }
@@ -84,7 +86,7 @@ $fairy: rgba(221, 138, 220, 0.2);
   background-color: $electric;
 }
 
-.psychic {
+.psychic::before {
   background-color: $psychic;
 }
 
@@ -98,4 +100,8 @@ $fairy: rgba(221, 138, 220, 0.2);
 
 .fairy::before {
   background-color: $fairy;
+}
+
+.ice::before {
+  background-color: $ice;
 }

@@ -7,7 +7,10 @@ import { IPokemonSprites } from '../../../interfaces';
   selector: 'molecule-image-circle-pokemon',
   standalone: true,
   imports: [
+    // ! Angular
     NgClass,
+
+    // ! Atoms
     AtomImagePokemonComponent
   ],
   templateUrl: './molecule-image-circle-pokemon.component.html',

@@ -23,6 +23,9 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
       }
     `,
     standalone: true,
-    imports: [MatProgressSpinner]
+    imports: [
+      // ! Material
+      MatProgressSpinner
+    ]
 })
 export class AtomLoadingComponent { }

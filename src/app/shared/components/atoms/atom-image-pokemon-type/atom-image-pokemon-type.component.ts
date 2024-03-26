@@ -5,6 +5,7 @@ import { MatTooltip } from '@angular/material/tooltip';
   selector: 'atom-image-pokemon-type',
   standalone: true,
   imports: [
+    // ! Material
     MatTooltip
   ],
   template: `
