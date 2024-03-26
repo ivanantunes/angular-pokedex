@@ -1,16 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Observable, map, merge, of, switchMap, tap, toArray } from 'rxjs';
-import { Pokemon } from '../../interfaces';
+import { map } from 'rxjs';
 import { PageSize, ToastrConfig } from 'src/app/constants';
-import { RequestService } from 'src/app/services';
 import { ToastrService } from 'ngx-toastr';
 import { AtomPaginatorComponent } from '../../shared/components/atoms/atom-paginator/atom-paginator.component';
-import { CardComponent } from '../../shared/components/organisms/card/card.component';
+import { OrganismPokemonCardDefaultComponent } from '../../shared/components/organisms/organism-pokemon-card-default/organism-pokemon-card-default.component';
 import { AtomLoadingComponent } from '../../shared/components/atoms/atom-loading/atom-loading.component';
 import { NgIf, NgFor } from '@angular/common';
 import { MoleculeSearchComponent } from 'src/app/shared/components/molecules';
+import { PokemonRequestService } from '../../shared/services';
 
 @Component({
     selector: 'app-home',
@@ -21,15 +20,21 @@ import { MoleculeSearchComponent } from 'src/app/shared/components/molecules';
       NgIf,
       NgFor,
 
-      // ! Components
+      // ! Atoms
       AtomLoadingComponent,
-      CardComponent,
       AtomPaginatorComponent,
-      MoleculeSearchComponent
+
+      // ! Molecules
+      MoleculeSearchComponent,
+
+      // ! Organism
+      OrganismPokemonCardDefaultComponent,
     ]
 })
 export class HomeComponent implements AfterViewInit {
-  public pokemons: Pokemon[] = [];
+
+  public pokemonIds: string[] = [];
+
   private nextPageUrl = '';
   private previousPageUrl = '';
   public pokemonLenght = 0;
@@ -63,11 +68,11 @@ export class HomeComponent implements AfterViewInit {
     }
   }
 
-  constructor(private request: RequestService,
-              private cdr: ChangeDetectorRef,
-              private http: HttpClient,
-              private toastr: ToastrService
-    ) { }
+  constructor(
+    private pokemonRequest: PokemonRequestService,
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService
+  ) { }
 
   ngAfterViewInit(): void {
     this.processPokemons();
@@ -88,21 +93,6 @@ export class HomeComponent implements AfterViewInit {
     }
   }
 
-  private setupPokemonByUrl(data: any): Observable<Pokemon[]> {
-    if (Array.isArray(data)) {
-      return merge(...data.map((row) => {
-        return this.http.get<Pokemon>(row.url);
-      })).pipe(
-        toArray()
-      );
-    } else {
-      if (this.paginator) {
-        this.paginator.pageIndex = 0;
-      }
-      return of([data]);
-    }
-  }
-
   private scrollToTop(): void {
     window.scroll({
       top: 0,
@@ -115,20 +105,20 @@ export class HomeComponent implements AfterViewInit {
     this.loading = true;
     this.search = search;
 
-    this.request.getPokemons(url, this.search, this.pageSize).pipe(
-      map((listOfLinks) => this.setupListOfLinks(listOfLinks)),
-      switchMap((rows) => this.setupPokemonByUrl(rows)),
-      map((result) => result.sort((a, b) => a.id - b.id))
+    this.pokemonRequest.getPokemons(url, this.search, this.pageSize).pipe(
+      map((response) => this.setupListOfLinks(response)),
+      map((response: { name: string, url: string }[]) => response.map((row: { name: string, url: string }) => row.name))
     ).subscribe({
-      next: (result) => {
-        this.pokemons = result;
+      next: (pokemonIds) => {
+        this.pokemonIds = pokemonIds;
         this.scrollToTop();
         this.loading = false;
       },
       error: (error) => {
+        console.error('Failed to Loading :(', error);
         this.loading = false;
-        this.pokemons = [];
-        this.toastr.error(`Failed to Load Pokemons :(`, 'Error Load Pokemons', ToastrConfig);
+        this.pokemonIds = [];
+        this.toastr.error(`Failed to Loading Pokémons, Please Try Again.`, 'Failed to Loading :(', ToastrConfig);
       }
     })
   }

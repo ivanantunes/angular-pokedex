@@ -1,0 +1,47 @@
+@defer (on viewport) {
+  @if (pokemon) {
+    <section  class="card__section" [ngClass]="types[0]">
+      <molecule-actions-default-pokemon [pokemonId]="pokemon.id" />
+
+      <molecule-image-circle-pokemon
+        [pokemonName]="pokemon.name"
+        [pokemonType]="types[0]"
+        [pekemonSprites]="pokemon.sprites"
+      />
+
+      <section class="info__section">
+        <molecule-text-pokemon-reference
+          [pokemonId]="pokemon.id"
+          [pokemonName]="pokemon.name"
+          [styleObjectCode]="styleObjectCode"
+          [styleObjectName]="styleObjectName"
+        />
+      </section>
+
+      <section class="info__section info__section--justify-content-center">
+        <molecule-image-pokemon-types [types]="types" [isDetailed]="true" class="mb-4" />
+      </section>
+    </section>
+  }
+} @placeholder {
+  <section class="card__section" ngClass="normal">
+
+    <molecule-image-circle-pokemon
+      [pokemonName]="'Loading'"
+      [pokemonType]="'normal'"
+    />
+
+    <section class="info__section">
+      <molecule-text-pokemon-reference
+        [pokemonId]="0"
+        [pokemonName]="'Loading'"
+        [styleObjectCode]="styleObjectCode"
+        [styleObjectName]="styleObjectName"
+      />
+    </section>
+
+    <section class="info__section info__section--justify-content-center">
+      <molecule-image-pokemon-types [types]="['normal']" [isDetailed]="true" class="mb-4" />
+    </section>
+  </section>
+}

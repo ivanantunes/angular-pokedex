@@ -2,7 +2,7 @@ import { Component, Input, Output } from '@angular/core';
 import { MatFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { Subject } from 'rxjs';
-import { SearchModel } from 'src/app/shared/interfaces';
+import { ISearchModel } from '../../../interfaces';
 
 @Component({
   selector: 'atom-button-search',
@@ -18,6 +18,6 @@ import { SearchModel } from 'src/app/shared/interfaces';
   `
 })
 export class AtomButtonSearchComponent {
-  @Input({ required: true }) value: SearchModel = { search: '', type: '' };
-  @Output() searchValue = new Subject<SearchModel>();
+  @Input({ required: true }) value: ISearchModel = { search: '', type: '' };
+  @Output() searchValue = new Subject<ISearchModel>();
 }

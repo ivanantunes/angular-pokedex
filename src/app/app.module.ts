@@ -1,6 +1,6 @@
 // ! Angular
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,9 +11,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 // ! Routing
 import { AppRoutingModule } from './app-routing.module';
-
-// ! Components
-import { CardComponent } from './shared/components/organisms/card/card.component';
 
 // ! Pages
 import { AppComponent } from './app.component';
@@ -66,16 +63,15 @@ import { OrganismHeaderComponent } from './shared/components/organisms/organism-
     MatMenuModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    // ! Components
+    // ! Organisms
     OrganismHeaderComponent,
-    CardComponent,
+    // ! Pages
     PokemonDetailsComponent,
     HomeComponent,
-    // ? Molecules
-    MoleculeSearchComponent
-
   ],
-  providers: [],
+  providers: [
+    provideClientHydration()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

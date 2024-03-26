@@ -1,7 +1,7 @@
 import { Component, Output } from '@angular/core';
 import { AtomButtonSearchComponent, AtomInputSearchComponent } from '../../atoms';
 import { Subject } from 'rxjs';
-import { SearchModel } from '../../../interfaces';
+import { ISearchModel } from '../../../interfaces';
 
 @Component({
   selector: 'molecule-search',
@@ -13,14 +13,14 @@ import { SearchModel } from '../../../interfaces';
   templateUrl: './molecule-search.component.html',
 })
 export class MoleculeSearchComponent {
-  public value: SearchModel = {
+  public value: ISearchModel = {
     search: '',
     type: ''
   };
 
   public searchValue = new Subject<string>();
 
-  @Output() searchEvent = new Subject<SearchModel>();
+  @Output() searchEvent = new Subject<ISearchModel>();
 
   constructor() {
     this.searchValue.subscribe((value) => {

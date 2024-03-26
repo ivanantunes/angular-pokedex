@@ -1,22 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IPokemon } from '../interfaces';
 import { PageSize } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RequestService {
+export class PokemonRequestService {
+  private baseURL = 'https://pokeapi.co/api/v2';
+
   constructor(
     private http: HttpClient
   ) { }
+
+  public getPokemonById(pokemonId: number | string): Observable<IPokemon> {
+    return this.http.get<IPokemon>(`${this.baseURL}/pokemon/${pokemonId}`);
+  }
 
   public getPokemons(url?: string, search?: string, pageSize?: number): Observable<any> {
     const defaultUrl = `https://pokeapi.co/api/v2/pokemon/${search ?? ''}?limit=${pageSize ?? PageSize}&offset=0`;
     return this.http.get<any>(url ?? defaultUrl);
   }
-
-  public get pokemonTypes(): Observable<any> {
-    return this.http.get<any>(`https://pokeapi.co/api/v2/type`);
-  }
 }
+

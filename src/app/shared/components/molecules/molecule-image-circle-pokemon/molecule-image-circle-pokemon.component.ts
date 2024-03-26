@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AtomImagePokemonComponent } from '../../atoms';
-import { Pokemon } from 'src/app/interfaces';
 import { NgClass } from '@angular/common';
+import { IPokemonSprites } from '../../../interfaces';
 
 @Component({
   selector: 'molecule-image-circle-pokemon',
@@ -14,5 +14,7 @@ import { NgClass } from '@angular/common';
   styleUrl: './molecule-image-circle-pokemon.component.scss'
 })
 export class MoleculeImageCirclePokemonComponent {
-  @Input({ required: true }) pokemon!: Pokemon;
+  @Input({ required: true }) pokemonType: string = '';
+  @Input({ required: true }) pokemonName: string = '';
+  @Input() pekemonSprites?: IPokemonSprites;
 }

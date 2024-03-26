@@ -3,7 +3,6 @@ import { ActivatedRoute, RouterLink} from '@angular/router';
 import { concat, firstValueFrom, map, merge, switchMap, toArray } from 'rxjs';
 import { Location, NgIf, NgFor, NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { DamangeObject, Pokemon } from '../../interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { ToastrConfig } from '../../constants';
 import { DatabaseService, RequestService } from 'src/app/services';
@@ -11,7 +10,7 @@ import { FavoriteView } from 'src/app/view';
 import { BarChartModule } from '@swimlane/ngx-charts';
 import { AtomButtonFavoriteComponent } from '../../shared/components/atoms/atom-button-favorite/atom-button-favorite.component';
 import { AtomLoadingComponent } from '../../shared/components/atoms/atom-loading/atom-loading.component';
-import { CardComponent } from 'src/app/shared/components/organisms/card/card.component';
+import { OrganismPokemonCardDefaultComponent } from 'src/app/shared/components/organisms/organism-pokemon-card-default/organism-pokemon-card-default.component';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -30,13 +29,13 @@ import { MatIcon } from '@angular/material/icon';
       // ! Components
       AtomLoadingComponent,
       AtomButtonFavoriteComponent,
-      CardComponent
+      OrganismPokemonCardDefaultComponent
     ]
 })
 export class PokemonDetailsComponent implements OnInit {
 
   public loading = false;
-  public pokemon?: Pokemon;
+  public pokemon?: any;
   public specie = '';
   public height = '0 m';
   public weight = '0 kg';
@@ -51,7 +50,7 @@ export class PokemonDetailsComponent implements OnInit {
 
   // ! Types Damage
   public damages: { name: string, value: number }[] = [];
-  public evolutionChain?: Pokemon[];
+  public evolutionChain?: any[];
 
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
@@ -86,8 +85,8 @@ export class PokemonDetailsComponent implements OnInit {
       this.height = `${sliceHeight} m`;
       this.weight = `${sliceWeight} kg`;
       this.abilities = this.pokemon.abilities
-                                          .map((rec) => rec.ability.name)
-                                          .map((r) => `${r.substring(0, 1).toUpperCase()}${r.substring(1, r.length)}`)
+                                          .map((rec: any) => rec.ability.name)
+                                          .map((r: any) => `${r.substring(0, 1).toUpperCase()}${r.substring(1, r.length)}`)
                                           .join(', ');
 
       // await firstValueFrom(this.pokemonTypeChart());
@@ -105,11 +104,11 @@ export class PokemonDetailsComponent implements OnInit {
     }
   }
 
-  private async getPokemonById(id: string): Promise<Pokemon> {
+  private async getPokemonById(id: string): Promise<any> {
     const url = `https://pokeapi.co/api/v2/pokemon/${id}/`;
 
     try {
-      const pokemon = await firstValueFrom(this.http.get<Pokemon>(url));
+      const pokemon = await firstValueFrom(this.http.get<any>(url));
       return Promise.resolve(pokemon);
     } catch (error) {
       return Promise.reject('Failed to get Pokemon by id, Try Again.');
@@ -139,7 +138,7 @@ export class PokemonDetailsComponent implements OnInit {
 
   private setupBaseStats(): void {
     let max = 0;
-    this.pokemon?.stats.forEach((stat) => {
+    this.pokemon?.stats.forEach((stat: any) => {
       this.results.push({ name: this.getFormatStats(stat.stat.name), value: stat.base_stat });
       const tempMax = stat.stat.name === 'hp' ? this.getPokemonHPStat(stat.base_stat, 100, 31, 255) : this.getPokemonOthersStats(true, stat.base_stat, 100, 31, 255);
 
@@ -182,34 +181,34 @@ export class PokemonDetailsComponent implements OnInit {
   public pokemonTypeChart(): void {
     this.request.pokemonTypes.pipe(
       switchMap((pokemonTypeObject) => {
-        return merge(...(this.pokemon as Pokemon).types.map((type) => {
-          return this.http.get<DamangeObject>(type.type.url).pipe(
+        return merge(...(this.pokemon as any).types.map((type: any) => {
+          return this.http.get<any>(type.type.url).pipe(
             map((damangeObject) => {
               const damaged: Array<{ type: string, damage: number }> = [];
 
               damangeObject.damage_relations.double_damage_from
-                                            .forEach((doubleDamage) => damaged.push({ type: doubleDamage.name, damage: 2 }));
+                                            .forEach((doubleDamage: any) => damaged.push({ type: doubleDamage.name, damage: 2 }));
 
               damangeObject.damage_relations.half_damage_from
-                                            .forEach((halfDamage) => damaged.push({ type: halfDamage.name, damage: 0.5 }));
+                                            .forEach((halfDamage: any) => damaged.push({ type: halfDamage.name, damage: 0.5 }));
 
               damangeObject.damage_relations.no_damage_from
-                                            .forEach((noDamage) => damaged.push({ type: noDamage.name, damage: 0 }));
+                                            .forEach((noDamage: any) => damaged.push({ type: noDamage.name, damage: 0 }));
 
               return damaged;
             })
           )
         })).pipe(
           toArray(),
-          map((damagedTypes) => {
-            return pokemonTypeObject.results.map((result) => {
-              let filterDamaged = damagedTypes[0].filter((e) => e.type === result.name);
+          map((damagedTypes: any) => {
+            return pokemonTypeObject.results.map((result: any) => {
+              let filterDamaged = damagedTypes[0].filter((e: any) => e.type === result.name);
 
               if (damagedTypes.length >= 2) {
                 filterDamaged = [...filterDamaged, ...damagedTypes[1]].filter((e) => e.type === result.name);
               }
 
-              let finalDamageTakenByType = filterDamaged.length <= 0 ? 1 : filterDamaged.reduce((a, b) => {
+              let finalDamageTakenByType = filterDamaged.length <= 0 ? 1 : filterDamaged.reduce((a: any, b: any) => {
                 a.damage *= b.damage;
                 return a;
               }).damage;
@@ -218,8 +217,8 @@ export class PokemonDetailsComponent implements OnInit {
             })
           }),
           map((result) => {
-            result.splice(result.findIndex((f) => f.name === 'shadow'), 1);
-            result.splice(result.findIndex((f) => f.name === 'unknown'), 1);
+            result.splice(result.findIndex((f: any) => f.name === 'shadow'), 1);
+            result.splice(result.findIndex((f: any) => f.name === 'unknown'), 1);
 
             return result;
           })

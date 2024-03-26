@@ -9,12 +9,8 @@
 
   <section class="row">
 
-    @for (pokemon of pokemons; track pokemon.id) {
-      @defer (on viewport) {
-        <app-card class="col" [pokemon]="pokemon" />
-      } @placeholder {
-        <p>Loading...</p>
-      }
+    @for (pokemonId of pokemonIds; track pokemonId) {
+      <organism-pokemon-card-default class="col" [pokdemonId]="pokemonId" />
     } @empty {
       <p>Not Found Pokémon!</p>
     }

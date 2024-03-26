@@ -1,1 +1,2 @@
-export * from './SearchModel';
+export * from './ISearchModel';
+export * from './IPokemon';
