@@ -1,1 +1,12 @@
-<p>molecule-image-pokemon-types works!</p>
+<section class="types__section">
+  @for (type of types; track $index) {
+    @if(isDetailed) {
+      <section class="type__section">
+        <atom-image-pokemon-type [type]="type" [isTooltip]="!isDetailed" />
+        <p>{{type}}</p>
+      </section>
+    } @else {
+      <atom-image-pokemon-type class="type__atom-image-pokemon-type" [type]="type" [isTooltip]="!isDetailed" />
+    }
+  }
+</section>

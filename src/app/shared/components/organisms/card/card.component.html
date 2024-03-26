@@ -1,4 +1,4 @@
-<section class="col poke-card"  [ngClass]="pokemon.types[0].type.name">
+<section class="card__section"  [ngClass]="types[0]">
 
   <molecule-actions-default-pokemon [pokemonId]="pokemon.id" />
 
@@ -11,14 +11,10 @@
       [styleObjectCode]="styleObjectCode"
       [styleObjectName]="styleObjectName"
     />
+  </section>
 
-    <!--
-    <section class="poke-card-container-info-icon">
-      @for (objectType of pokemon.types; track $index) {
-        <img src="assets/img/icon-types/{{objectType.type.name}}.svg" alt="Type {{objectType.type.name}}" />
-      }
-    </section> -->
-
+  <section class="info__section info__section--justify-content-center">
+    <molecule-image-pokemon-types [types]="types" [isDetailed]="true" class="mb-4" />
   </section>
 
 </section>

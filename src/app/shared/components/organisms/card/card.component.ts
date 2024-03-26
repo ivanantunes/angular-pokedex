@@ -6,6 +6,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 import { NgClass, NgFor } from '@angular/common';
 import { MoleculeActionsDefaultPokemonComponent, MoleculeImageCirclePokemonComponent, MoleculeTextPokemonReferenceComponent } from '../../molecules';
+import { MoleculeImagePokemonTypesComponent } from '../../molecules/molecule-image-pokemon-types/molecule-image-pokemon-types.component';
 
 @Component({
   selector: 'app-card',
@@ -23,7 +24,8 @@ import { MoleculeActionsDefaultPokemonComponent, MoleculeImageCirclePokemonCompo
     // ! Components
     MoleculeActionsDefaultPokemonComponent,
     MoleculeImageCirclePokemonComponent,
-    MoleculeTextPokemonReferenceComponent
+    MoleculeTextPokemonReferenceComponent,
+    MoleculeImagePokemonTypesComponent
   ]
 })
 export class CardComponent {
@@ -53,6 +55,10 @@ export class CardComponent {
 
   public moreInfo(): void {
     this.route.navigate([`pokemon/details/${this.pokemon.id}`])
+  }
+
+  public get types(): string[] {
+    return this.pokemon.types.map((type) => type.type.name);
   }
 
 }

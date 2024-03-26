@@ -10,6 +10,7 @@ import { AtomPaginatorComponent } from '../../shared/components/atoms/atom-pagin
 import { CardComponent } from '../../shared/components/organisms/card/card.component';
 import { AtomLoadingComponent } from '../../shared/components/atoms/atom-loading/atom-loading.component';
 import { NgIf, NgFor } from '@angular/common';
+import { MoleculeSearchComponent } from 'src/app/shared/components/molecules';
 
 @Component({
     selector: 'app-home',
@@ -23,7 +24,8 @@ import { NgIf, NgFor } from '@angular/common';
       // ! Components
       AtomLoadingComponent,
       CardComponent,
-      AtomPaginatorComponent
+      AtomPaginatorComponent,
+      MoleculeSearchComponent
     ]
 })
 export class HomeComponent implements AfterViewInit {
