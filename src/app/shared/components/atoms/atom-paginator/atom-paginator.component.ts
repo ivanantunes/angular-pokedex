@@ -4,16 +4,17 @@ import { PageIndex, PageSize, PageSizeOptions } from '../../../constants';
 
 @Component({
   selector: 'atom-paginator',
+  standalone: true,
+  imports: [MatPaginator],
   template: `
       <mat-paginator #paginator
+      [color]="'warn'"
       (page)="onPageEvent.emit($event)"
       [length]="length"
       [pageSizeOptions]="pageSizeOptions"
       [pageSize]="pageSizeDefault"
       [pageIndex]="pageIndex"></mat-paginator>
     `,
-  standalone: true,
-  imports: [MatPaginator]
 })
 export class AtomPaginatorComponent implements AfterViewInit {
   @Input({ required: true }) length = 0;

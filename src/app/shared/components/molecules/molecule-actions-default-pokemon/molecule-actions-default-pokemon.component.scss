@@ -3,3 +3,11 @@
   justify-content: end;
   padding: 10px;
 }
+
+.actions {
+  &__section {
+    display: flex;
+    justify-content: end;
+    padding: 10px;
+  }
+}

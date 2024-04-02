@@ -9,7 +9,8 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
       </section>
     `,
     styles: `
-      .loading__section {
+    .loading {
+      &__section {
         position: fixed;
         top: 0;
         left: 0;
@@ -21,6 +22,8 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
         align-items: center;
         justify-content: center;
       }
+    }
+
     `,
     standalone: true,
     imports: [

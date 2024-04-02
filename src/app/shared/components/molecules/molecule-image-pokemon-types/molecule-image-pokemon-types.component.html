@@ -1,12 +1,12 @@
 <section class="types__section">
   @for (type of types; track type) {
     @if(isDetailed) {
-      <section class="type__section">
+      <section class="types__type__section">
         <atom-image-pokemon-type [type]="type" [isTooltip]="!isDetailed" />
         <p>{{type}}</p>
       </section>
     } @else {
-      <atom-image-pokemon-type class="type__atom-image-pokemon-type" [type]="type" [isTooltip]="!isDetailed" />
+      <atom-image-pokemon-type class="types__type__atom-image-pokemon-type" [type]="type" [isTooltip]="!isDetailed" />
     }
   }
 </section>

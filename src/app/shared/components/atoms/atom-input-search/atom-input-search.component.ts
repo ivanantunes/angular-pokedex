@@ -23,8 +23,12 @@ import { Subject, debounceTime } from 'rxjs';
     </mat-form-field>
   `,
   styles: `
-    .search__input--width {
-      width: 100%;
+    .search {
+      &__input {
+        &--width {
+          width: 100%;
+        }
+      }
     }
   `
 })

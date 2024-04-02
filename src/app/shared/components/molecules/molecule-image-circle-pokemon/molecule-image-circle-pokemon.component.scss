@@ -1,24 +1,26 @@
 @import '../../../styles/color-types.scss';
 
-.circle__section {
-  width: 20rem;
-  height: 20rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  margin-bottom: 1.4rem;
-}
+.circle {
+  &__section {
+    width: 20rem;
+    height: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 1.4rem;
+  }
 
-.circle__section::before {
-  content: "";
-  width: 16.5rem;
-  height: 16.5rem;
-  border-radius: 50%;
-  position: absolute;
-  z-index: -1;
-}
+  &__section::before {
+    content: "";
+    width: 16.5rem;
+    height: 16.5rem;
+    border-radius: 50%;
+    position: absolute;
+    z-index: -1;
+  }
 
-.circle__section .circle__atom-image-pokemon {
-  scale: 2.5;
+  &__atom-image-pokemon {
+    scale: 2.5;
+  }
 }

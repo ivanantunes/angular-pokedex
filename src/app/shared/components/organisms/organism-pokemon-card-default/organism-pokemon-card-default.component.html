@@ -9,7 +9,7 @@
         [pekemonSprites]="pokemon.sprites"
       />
 
-      <section class="info__section">
+      <section class="card__info__section">
         <molecule-text-pokemon-reference
           [pokemonId]="pokemon.id"
           [pokemonName]="pokemon.name"
@@ -18,7 +18,7 @@
         />
       </section>
 
-      <section class="info__section info__section--justify-content-center">
+      <section class="card__info__section card__info__section--justify-content--center">
         <molecule-image-pokemon-types [types]="types" [isDetailed]="true" class="mb-4" />
       </section>
     </section>
@@ -31,7 +31,7 @@
       [pokemonType]="'normal'"
     />
 
-    <section class="info__section">
+    <section class="card__info__section">
       <molecule-text-pokemon-reference
         [pokemonId]="0"
         [pokemonName]="'Loading'"
@@ -40,7 +40,7 @@
       />
     </section>
 
-    <section class="info__section info__section--justify-content-center">
+    <section class="card__info__section card__info__section--justify-content--center">
       <molecule-image-pokemon-types [types]="['normal']" [isDetailed]="true" class="mb-4" />
     </section>
   </section>

@@ -1,31 +1,38 @@
-.card__section {
-  min-width: 350px;
-  min-height: 450px;
-  box-shadow: 0px 10px 51px -5px rgba(183, 189, 193, 0.3);
-  border-radius: 12px;
-  transition: all 0.2s;
-  animation: fadeIn 1s forwards;
-  margin: 15px;
-}
+.card {
+  &__section {
+    min-width: 350px;
+    min-height: 450px;
+    box-shadow: 0px 10px 51px -5px rgba(183, 189, 193, 0.3);
+    border-radius: 12px;
+    transition: all 0.2s;
+    animation: fadeIn 1s forwards;
+    margin: 15px;
+  }
 
-.card__section:hover {
-  transform: translateY(-10px);
-  box-shadow: 0px 10px 51px -5px rgba(183, 189, 193, 0.7);
-}
+  &__section:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 10px 51px -5px rgba(183, 189, 193, 0.7);
+  }
 
-.info__section {
-  display: flex;
-  padding: 0 2.8rem;
-  align-items: flex-end;
-  justify-content: space-between;
-}
+  &__info {
+    &__section {
+      display: flex;
+      padding: 0 2.8rem;
+      align-items: flex-end;
+      justify-content: space-between;
 
-.info__section--justify-content-center {
-  justify-content: center;
-}
+      &--justify-content {
+        &--center {
+          justify-content: center;
+        }
 
-.info__section--justify-content-end {
-  justify-content: end;
+        &--end {
+          justify-content: end;
+        }
+      }
+    }
+
+  }
 }
 
 @keyframes fadeIn {
