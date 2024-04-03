@@ -18,3 +18,4 @@ export * from './atom-input-search/atom-input-search.component'
 // ! Text
 export * from './atom-text-pokemon-code/atom-text-pokemon-code.component';
 export * from './atom-text-pokemon-name/atom-text-pokemon-name.component';
+export * from './atom-text-pokemon-detail/atom-text-pokemon-detail.component';

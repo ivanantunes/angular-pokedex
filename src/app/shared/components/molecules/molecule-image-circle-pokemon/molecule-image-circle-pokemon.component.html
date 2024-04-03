@@ -1,3 +1,13 @@
-<section class="circle__section" [ngClass]="pokemonType">
-  <atom-image-pokemon class="circle__atom-image-pokemon" [sprites]="pekemonSprites" [pokemonName]="pokemonName" />
+<section [class]="pokemonType" [ngClass]="{
+    'circle__section': !smallCircle,
+    'circle-small__section': smallCircle
+  }" >
+  <atom-image-pokemon [ngClass]="{
+      'circle__atom-image-pokemon': !smallCircle,
+      'circle-small__atom-image-pokemon': smallCircle
+    }"
+    [sprites]="pekemonSprites"
+    [pokemonName]="pokemonName"
+    [isShiny]="pokemonShiny"
+  />
 </section>

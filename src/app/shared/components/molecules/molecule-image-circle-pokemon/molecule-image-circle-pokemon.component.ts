@@ -20,4 +20,6 @@ export class MoleculeImageCirclePokemonComponent {
   @Input({ required: true }) pokemonType: string = '';
   @Input({ required: true }) pokemonName: string = '';
   @Input() pekemonSprites?: IPokemonSprites;
+  @Input() pokemonShiny: boolean = false;
+  @Input() smallCircle: boolean = false;
 }

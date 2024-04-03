@@ -5,64 +5,7 @@
   <!-- ! Container Pokemon Imagen + Info -->
   <div class="row" *ngIf="pokemon">
 
-    <div class="col poke-card-base">
-
-      <!-- ! Container Header + Action -->
-      <div class="poke-card-header">
-        <div>
-          <p><strong>{{pokemon.name}}</strong>&nbsp;<span>#{{pokemon.id.toString().padStart(4, '0')}}</span></p>
-
-          <div class="poke-card-container-type">
-            <div *ngFor="let objectType of pokemon.types" >
-              <img [src]="'assets/img/icon-types/'+ objectType.type.name + '.svg'" alt="Type">
-              <span>{{objectType.type.name}}</span>
-            </div>
-          </div>
-
-        </div>
-
-        <atom-button-favorite [pokemonId]="pokemon.id"></atom-button-favorite>
-      </div>
-
-      <!-- ! Container Carousel Pokemon Image -->
-      <div id="carouselPokemonImage" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselPokemonImage" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Pokemon Default"></button>
-          <button type="button" data-bs-target="#carouselPokemonImage" data-bs-slide-to="1" aria-label="Pokemon Shiny"></button>
-        </div>
-
-        <div class="carousel-inner">
-          <div class="carousel-item active poke-card-carousel" [ngClass]="pokemon.types[0].type.name">
-            <div class="d-block w-100">
-              <img [src]="pokemon.sprites.other['official-artwork'].front_default" [alt]="'Image ' + pokemon.name">
-            </div>
-          </div>
-
-          <div class="carousel-item poke-card-carousel" [ngClass]="pokemon.types[0].type.name">
-            <div class="d-block w-100" >
-              <img [src]="pokemon.sprites.other['official-artwork'].front_shiny" [alt]="'Image ' + pokemon.name">
-            </div>
-          </div>
-        </div>
-
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselPokemonImage" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselPokemonImage" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-
-      <div class="mt-3">
-        <p><strong>Species:</strong>&nbsp;{{specie}}</p>
-        <p><strong>Height:</strong>&nbsp;{{height}}</p>
-        <p><strong>Weight:</strong>&nbsp;{{weight}}</p>
-        <p><strong>Abilities:</strong>&nbsp;{{abilities}}</p>
-      </div>
-
-    </div>
+    <organism-pokemon-card-details class="col" [pokemon]="pokemon" />
 
     <div class="col poke-card-base">
 

@@ -12,6 +12,7 @@ import { AtomLoadingComponent } from '../../shared/components/atoms/atom-loading
 import { OrganismPokemonCardDefaultComponent } from 'src/app/shared/components/organisms/organism-pokemon-card-default/organism-pokemon-card-default.component';
 import { MatIcon } from '@angular/material/icon';
 import { ToastrConfig } from 'src/app/shared/constants';
+import { OrganismPokemonCardDetailsComponent } from 'src/app/shared/components/organisms';
 
 @Component({
     selector: 'app-pokemon-details',
@@ -29,7 +30,8 @@ import { ToastrConfig } from 'src/app/shared/constants';
       // ! Components
       AtomLoadingComponent,
       AtomButtonFavoriteComponent,
-      OrganismPokemonCardDefaultComponent
+      OrganismPokemonCardDefaultComponent,
+      OrganismPokemonCardDetailsComponent,
     ]
 })
 export class PokemonDetailsComponent implements OnInit {

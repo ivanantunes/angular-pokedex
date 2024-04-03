@@ -1,0 +1,53 @@
+@if(pokemon) {
+  <section class="pcard p-2">
+
+    <section class="pcard__header">
+      <section>
+        <molecule-text-pokemon-reference
+          [pokemonId]="pokemon.id"
+          [pokemonName]="pokemon.name"
+          [isInlineReference]="true"
+          [styleObjectCode]="styleObjectCode"
+          [styleObjectName]="styleObjectName"
+        />
+
+        <molecule-image-pokemon-types
+          [types]="types"
+          [isDetailed]="true"
+        />
+
+      </section>
+
+      <section>
+        <atom-button-favorite [pokemonId]="pokemon.id" />
+      </section>
+    </section>
+
+    <section class="pcard__body row">
+      <section class="col-xs-2 col-md">
+        <p class="pcard__body--normal"><strong>Normal</strong></p>
+        <molecule-image-circle-pokemon
+          [pokemonName]="pokemon.name"
+          [pokemonType]="types[0]"
+          [pekemonSprites]="pokemon.sprites"
+          [smallCircle]="true"
+        />
+      </section>
+      <section class="col-xs-2 col-md">
+        <p class="pcard__body--shiny"><strong>Shiny</strong></p>
+        <molecule-image-circle-pokemon
+        [pokemonName]="pokemon.name"
+        [pokemonType]="types[0]"
+        [pokemonShiny]="true"
+        [pekemonSprites]="pokemon.sprites"
+        [smallCircle]="true"
+      />
+      </section>
+    </section>
+
+    <section class="pcard__footer">
+      <molecule-text-pokemon-details [pokemon]="pokemon" />
+    </section>
+
+  </section>
+}

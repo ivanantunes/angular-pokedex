@@ -31,6 +31,10 @@ export interface IPokemonDataBase {
   url: string;
 }
 
+export interface IPokemonUrl {
+  url: string;
+}
+
 export interface IPokemonGameIndex {
   game_index: number;
   version: IPokemonDataBase;
@@ -205,4 +209,68 @@ export interface IPokemonGenerationVII {
 
 export interface IPokemonGenerationVIII {
   icons: IPokemonSpriteDreamworld;
+}
+
+// ! Species
+
+export interface IPokemonSpecieFlavor {
+  flavor_text: string;
+  language: IPokemonDataBase;
+  version: IPokemonDataBase;
+}
+
+export interface IPokemonSpecieGenera {
+  genus: string;
+  language: IPokemonDataBase;
+}
+
+export interface IPokemonSpecieName {
+  name: string;
+  language: IPokemonDataBase;
+}
+
+export interface IPokemonSpecieEncounter {
+  area: IPokemonDataBase;
+  base_score: number;
+  rate: number;
+}
+
+export interface IPokemonSpeciePokedex {
+  entry_number: number;
+  pokedex: IPokemonDataBase;
+}
+
+export interface IPokemonSpecieVarietie {
+  is_default: boolean;
+  pokemon: IPokemonDataBase;
+}
+
+export interface IPokemonSpecie {
+  base_happiness: number;
+  capture_rate: number;
+  color: IPokemonDataBase;
+  egg_groups: IPokemonDataBase[];
+  evolution_chain: IPokemonUrl;
+  evolves_from_species?: any;
+  flavor_text_entries: IPokemonSpecieFlavor[];
+  form_descriptions: any[];
+  forms_switchable: boolean;
+  gender_rate: number;
+  genera: IPokemonSpecieGenera[];
+  generation: IPokemonDataBase;
+  growth_rate: IPokemonDataBase;
+  habitat: IPokemonDataBase;
+  has_gender_differences: boolean;
+  hatch_counter: number;
+  id: number;
+  is_baby: boolean;
+  is_legendary: boolean;
+  is_mythical: boolean;
+  name: string;
+  names: IPokemonSpecieName[];
+  order: number;
+  pal_park_encounters: IPokemonSpecieEncounter[];
+  pokedex_numbers: IPokemonSpeciePokedex[];
+  shape: IPokemonDataBase;
+  varieties: IPokemonSpecieVarietie[]
 }

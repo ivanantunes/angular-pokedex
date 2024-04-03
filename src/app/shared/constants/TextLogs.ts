@@ -6,6 +6,7 @@ export const FaceExpressionsLog = {
 
 export const TitleFailedLog = {
   loading: `Failed to Loading ${FaceExpressionsLog.error}`,
-  favorite: `Failed to Favorite ${FaceExpressionsLog.error}`
+  favorite: `Failed to Favorite ${FaceExpressionsLog.error}`,
+  specie: `Failed to Specie ${FaceExpressionsLog.error}`
 }
 

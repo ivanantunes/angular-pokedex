@@ -1,11 +1,7 @@
 @if (isInlineReference) {
-  <section class="row">
-    <section class="col-xs-4 col-sm-2">
-      <atom-text-pokemon-name [pokemonName]="pokemonName" [styleObject]="styleObjectName"/>
-    </section>
-    <section class="col-xs-4 col-sm-2">
-      <atom-text-pokemon-code [pokemonId]="pokemonId" [styleObject]="styleObjectCode" />
-    </section>
+  <section class="d-flex">
+    <atom-text-pokemon-name [pokemonName]="pokemonName" [styleObject]="styleObjectName"/>
+    <atom-text-pokemon-code [pokemonId]="pokemonId" [styleObject]="styleObjectCode" />
   </section>
 } @else {
   <section>

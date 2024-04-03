@@ -1,0 +1,43 @@
+.pcard {
+  min-width: 350px;
+  min-height: 450px;
+  box-shadow: 0px 10px 51px -5px rgba(183, 189, 193, 0.3);
+  border-radius: 12px;
+  margin: 15px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px;
+  }
+
+  &__body {
+    margin: 15px;
+    text-align: center;
+
+    section {
+      margin: 15px;
+    }
+
+    p {
+      border-radius: 12px;
+      font-size: medium;
+      padding: 2px;
+    }
+
+    &--normal {
+      color: #7a7d80;
+      border: 1.5px dotted #7a7d80;
+    }
+
+    &--shiny {
+      color: #f69d32;
+      border: 1.5px dotted #f69d32;
+    }
+  }
+
+  &__footer {
+    margin: 15px;
+  }
+}
