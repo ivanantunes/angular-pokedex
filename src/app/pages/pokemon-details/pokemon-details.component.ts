@@ -1,18 +1,14 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink} from '@angular/router';
 import { concat, firstValueFrom, map, merge, switchMap, toArray } from 'rxjs';
 import { Location, NgIf, NgFor, NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { DatabaseService, RequestService } from 'src/app/services';
-import { FavoriteView } from 'src/app/view';
-import { BarChartModule } from '@swimlane/ngx-charts';
-import { AtomButtonFavoriteComponent } from '../../shared/components/atoms/atom-button-favorite/atom-button-favorite.component';
+import { RequestService } from 'src/app/services';
 import { AtomLoadingComponent } from '../../shared/components/atoms/atom-loading/atom-loading.component';
-import { OrganismPokemonCardDefaultComponent } from 'src/app/shared/components/organisms/organism-pokemon-card-default/organism-pokemon-card-default.component';
 import { MatIcon } from '@angular/material/icon';
 import { ToastrConfig } from 'src/app/shared/constants';
-import { OrganismPokemonCardDetailsComponent } from 'src/app/shared/components/organisms';
+import { OrganismPokemonCardDetailsComponent, OrganismPokemonChartStatsComponent } from 'src/app/shared/components/organisms';
 
 @Component({
     selector: 'app-pokemon-details',
@@ -20,35 +16,26 @@ import { OrganismPokemonCardDetailsComponent } from 'src/app/shared/components/o
     styleUrls: ['./pokemon-details.component.scss'],
     standalone: true,
     imports: [
+      // ! Angular
       NgIf,
       NgFor,
       NgClass,
       RouterLink,
-      BarChartModule,
+
+      // ! Material
       MatIcon,
 
-      // ! Components
+      // ! Atoms
       AtomLoadingComponent,
-      AtomButtonFavoriteComponent,
-      OrganismPokemonCardDefaultComponent,
+
+      // ! Organisms
       OrganismPokemonCardDetailsComponent,
+      OrganismPokemonChartStatsComponent
     ]
 })
 export class PokemonDetailsComponent implements OnInit {
-
   public loading = false;
   public pokemon?: any;
-  public specie = '';
-  public height = '0 m';
-  public weight = '0 kg';
-  public abilities = '';
-
-  // ! Base Stats
-  public results: { name: string, value: number }[] = [];
-  public xScaleMax = 0;
-  public colorScheme: any = {
-    domain: ['#eb170c', '#851005', '#4ac70c', '#5c0b04', '#246304', '#0460bd']
-  };
 
   // ! Types Damage
   public damages: { name: string, value: number }[] = [];
@@ -66,30 +53,6 @@ export class PokemonDetailsComponent implements OnInit {
       const params = await firstValueFrom(this.route.paramMap);
       const id = params.get('id');
       this.pokemon = await this.getPokemonById(id ?? '');
-      console.log(this.pokemon);
-      this.specie = await this.getSpecieByUrl(this.pokemon.species.url);
-      this.setupBaseStats();
-
-      const height = String(this.pokemon.height);
-      const weight = String(this.pokemon.weight);
-
-      let sliceHeight = this.slice(height, height.length - 1, '.');
-      let sliceWeight  = this.slice(weight, weight.length - 1, '.');
-
-      if (sliceHeight.indexOf('.') === 0) {
-        sliceHeight = '0' + sliceHeight;
-      }
-
-      if (sliceWeight.indexOf('.') === 0) {
-        sliceWeight = '0' + sliceWeight;
-      }
-
-      this.height = `${sliceHeight} m`;
-      this.weight = `${sliceWeight} kg`;
-      this.abilities = this.pokemon.abilities
-                                          .map((rec: any) => rec.ability.name)
-                                          .map((r: any) => `${r.substring(0, 1).toUpperCase()}${r.substring(1, r.length)}`)
-                                          .join(', ');
 
       // await firstValueFrom(this.pokemonTypeChart());
       this.pokemonTypeChart()
@@ -117,67 +80,13 @@ export class PokemonDetailsComponent implements OnInit {
     }
   }
 
-  private async getSpecieByUrl(url: string): Promise<string> {
-    try {
-      const specie = await firstValueFrom(this.http.get<any>(url));
 
-      if (!specie.genera) {
-        return Promise.resolve('Not Defined');
-      }
-
-      return Promise.resolve((specie.genera as any[]).find((rec) => rec.language.name === 'en').genus as string);
-    } catch (error) {
-      return Promise.reject('Failed to get Pokemon Specie, Try Again.');
-    }
-  }
 
   // backClicked() {
   //   this._location.back();
   // }
   public slice(text: string, position: number, inc: string): string {
 		return text.slice(0, position) + inc + text.slice(position);
-	}
-
-  private setupBaseStats(): void {
-    let max = 0;
-    this.pokemon?.stats.forEach((stat: any) => {
-      this.results.push({ name: this.getFormatStats(stat.stat.name), value: stat.base_stat });
-      const tempMax = stat.stat.name === 'hp' ? this.getPokemonHPStat(stat.base_stat, 100, 31, 255) : this.getPokemonOthersStats(true, stat.base_stat, 100, 31, 255);
-
-      if (tempMax > max) {
-        max = tempMax;
-      }
-
-      // return {
-      //   name: this.getFormatStats(stat.stat.name),
-      //   baseStats: stat.base_stat,
-      //   min: stat.stat.name === 'hp' ? this.getPokemonHPStat(stat.base_stat, 100) : this.getPokemonOthersStats(false, stat.base_stat, 100),
-      //   max: stat.stat.name === 'hp' ? this.getPokemonHPStat(stat.base_stat, 100, 31, 255) : this.getPokemonOthersStats(true, stat.base_stat, 100, 31, 255),
-      // }
-    });
-
-    this.xScaleMax = max;
-  }
-
-  private getFormatStats(name: string): string {
-		switch (name) {
-			case 'special-attack':
-				return 'Sp. Atk';
-			case 'special-defense':
-				return 'Sp. Def';
-			default:
-				return name
-					.replace(/-/g, ' ')
-					.replace(/\w\S*/g, (w: any) => w.replace(/^\w/, (c: any) => c.toUpperCase()));
-		}
-	}
-
-  public getPokemonHPStat(base: number, level: number, iv: number = 0, ev: number = 0): number {
-		return Math.floor(0.01 * (2 * base + iv + Math.floor(0.25 * ev)) * level) + level + 10;
-	}
-
-  public getPokemonOthersStats(nature: boolean, base: number, level: number, iv: number = 0, ev: number = 0): number {
-		return Math.floor(((((2 * base + iv + Math.floor(ev * 0.25)) * level) / 100) + 5) * (nature ? 1.1 : 0.9));
 	}
 
   public pokemonTypeChart(): void {
@@ -282,7 +191,5 @@ export class PokemonDetailsComponent implements OnInit {
         )
       })
     ));
-
-    console.log(this.evolutionChain);
   }
 }

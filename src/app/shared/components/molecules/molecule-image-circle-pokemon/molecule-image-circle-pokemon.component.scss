@@ -27,25 +27,24 @@
 
 .circle-small {
   &__section {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    margin-bottom: 1.4rem;
   }
 
   &__section::before {
     content: "";
-    width: 110px;
-    height: 110px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     position: absolute;
     z-index: -1;
   }
 
   &__atom-image-pokemon {
-    scale: 1.2;
+    scale: 1.6;
   }
 }

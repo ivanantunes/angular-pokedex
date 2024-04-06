@@ -1,0 +1,19 @@
+<section class="p-2">
+  <section class="pcard__header">
+    <p><strong>Base Stats</strong></p>
+  </section>
+
+  <section class="pcard__body">
+    <ngx-charts-bar-horizontal
+      [scheme]="chartColor"
+      [results]="chartValue"
+      [animations]="true"
+      [yAxis]="true"
+      [showDataLabel]="true"
+      [tooltipDisabled]="true"
+      [roundEdges]="true"
+      [xScaleMax]="xScaleMax"
+    >
+    </ngx-charts-bar-horizontal>
+  </section>
+</section>

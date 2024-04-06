@@ -1,38 +1,17 @@
-<atom-loading *ngIf="loading"></atom-loading>
+@if (loading) {
+  <atom-loading />
+}
 
-<div class="container mt-5" *ngIf="!loading">
+<section class="container mt-2">
 
-  <!-- ! Container Pokemon Imagen + Info -->
-  <div class="row" *ngIf="pokemon">
+  <section class="row">
+    <organism-pokemon-card-details class="col pcard" [pokemon]="pokemon" />
+    <organism-pokemon-chart-stats class="col pcard" [stats]="pokemon.stats" />
+  </section>
 
-    <organism-pokemon-card-details class="col" [pokemon]="pokemon" />
+  <section class="row">
 
-    <div class="col poke-card-base">
-
-      <!-- ! Container Header -->
-      <div class="poke-card-header">
-        <div>
-          <p><strong>Base Stats</strong></p>
-        </div>
-      </div>
-
-      <div>
-        <ngx-charts-bar-horizontal
-          [scheme]="colorScheme"
-          [results]="results"
-          [animations]="true"
-          [yAxis]="true"
-          [showDataLabel]="true"
-          [tooltipDisabled]="true"
-          [roundEdges]="true"
-          [xScaleMax]="xScaleMax"
-        >
-        </ngx-charts-bar-horizontal>
-      </div>
-
-    </div>
-
-  </div>
+  </section>
 
   <div class="row">
 
@@ -69,7 +48,7 @@
 
   </div>
 
-  <!-- <div class="row" *ngIf="evolutionChain">
+  <div class="row" *ngIf="evolutionChain">
 
     <div class="col poke-card-base" style="min-height: auto !important;">
       <div class="poke-card-header">
@@ -93,6 +72,6 @@
 
     </div>
 
-  </div> -->
+  </div>
 
-</div>
+</section>

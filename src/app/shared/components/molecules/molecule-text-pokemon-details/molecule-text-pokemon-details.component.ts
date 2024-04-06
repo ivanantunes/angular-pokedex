@@ -24,6 +24,8 @@ export class MoleculeTextPokemonDetailsComponent implements OnInit {
   public height = '0 m';
   public weight = '0 kg';
   public abilities = '';
+  public meetingPlaces = '';
+  public generation = '';
 
   constructor(
     private pokemonRequest: PokemonRequestService,
@@ -43,6 +45,8 @@ export class MoleculeTextPokemonDetailsComponent implements OnInit {
     try {
       const species = await firstValueFrom(this.pokemonRequest.getSpecies(this.pokemon.species.url));
       this.specie = species.genera.find((f) => f.language.name === 'en')?.genus ?? 'Not Defined';
+      this.meetingPlaces = species.pal_park_encounters.map((f) => `${f.area.name[0].toUpperCase()}${f.area.name.substring(1, f.area.name.length)}`).join(', ');
+      this.generation = species.generation.name.replace('generation-', '').toUpperCase();
     } catch (error) {
       console.error(TitleFailedLog.specie, error);
       this.toastr.error('Failed to Get Specie Pokémon', TitleFailedLog.specie, ToastrConfig);
