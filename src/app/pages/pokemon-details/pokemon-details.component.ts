@@ -5,10 +5,16 @@ import { Location, NgIf, NgFor, NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { RequestService } from 'src/app/services';
-import { AtomLoadingComponent } from '../../shared/components/atoms/atom-loading/atom-loading.component';
 import { MatIcon } from '@angular/material/icon';
-import { ToastrConfig } from 'src/app/shared/constants';
-import { OrganismPokemonCardDetailsComponent, OrganismPokemonChartStatsComponent } from 'src/app/shared/components/organisms';
+
+import { ToastrConfig } from '../../shared/constants';
+import { AtomLoadingComponent } from '../../shared/components/atoms';
+import {
+  OrganismPokemonCardDetailsComponent,
+  OrganismPokemonChartStatsComponent,
+  OrganismPokemonDamageTakenComponent
+} from '../../shared/components/organisms';
+import { IPokemon } from '../../shared/interfaces';
 
 @Component({
     selector: 'app-pokemon-details',
@@ -30,12 +36,13 @@ import { OrganismPokemonCardDetailsComponent, OrganismPokemonChartStatsComponent
 
       // ! Organisms
       OrganismPokemonCardDetailsComponent,
-      OrganismPokemonChartStatsComponent
+      OrganismPokemonChartStatsComponent,
+      OrganismPokemonDamageTakenComponent
     ]
 })
 export class PokemonDetailsComponent implements OnInit {
   public loading = false;
-  public pokemon?: any;
+  public pokemon?: IPokemon;
 
   // ! Types Damage
   public damages: { name: string, value: number }[] = [];
@@ -50,13 +57,13 @@ export class PokemonDetailsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     try {
       this.loading = true;
-      const params = await firstValueFrom(this.route.paramMap);
+      const params = await firstValueFrom(this.route.paramMap)
       const id = params.get('id');
       this.pokemon = await this.getPokemonById(id ?? '');
 
       // await firstValueFrom(this.pokemonTypeChart());
       this.pokemonTypeChart()
-      await this.setupEvolutionChain();
+      await this.setupEvolutionChain()
 
       this.loading = false;
     } catch (error) {

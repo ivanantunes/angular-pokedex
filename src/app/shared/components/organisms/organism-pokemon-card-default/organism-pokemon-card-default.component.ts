@@ -31,12 +31,12 @@ export class OrganismPokemonCardDefaultComponent implements OnInit {
   @Input({ required: true }) pokdemonId: number | string = 0;
 
   public styleObjectCode = {
-    'display': 'block',
+    display: 'block',
     'text-align': 'left',
     'font-weight': 500,
     'font-size': '1.3rem',
     'line-height': '150%',
-    'color': '#7a7d80',
+    color: '#7a7d80',
     'margin-bottom': '0.6rem'
   };
 
@@ -44,8 +44,8 @@ export class OrganismPokemonCardDefaultComponent implements OnInit {
     'font-weight': 600,
     'font-size': '1.8rem',
     'line-height': '150%',
-    'color': '#2f3133'
-  }
+    color: '#2f3133'
+  };
 
   public pokemon!: IPokemon;
 
@@ -63,7 +63,7 @@ export class OrganismPokemonCardDefaultComponent implements OnInit {
         console.error(TitleFailedLog.loading, error);
         this.toast.error('Failed to Loading Pokémon, Please Try Again.', TitleFailedLog.loading, ToastrConfig);
       }
-    })
+    });
   }
 
   public get types(): string[] {

@@ -22,7 +22,7 @@ import { Component, Input } from '@angular/core';
   `
 })
 export class AtomTextPokemonNameComponent {
-  @Input({ required: true }) pokemonName: string = '';
-  @Input() enableBold: boolean = true;
+  @Input({ required: true }) pokemonName = '';
+  @Input() enableBold = true;
   @Input() styleObject?: any;
 }

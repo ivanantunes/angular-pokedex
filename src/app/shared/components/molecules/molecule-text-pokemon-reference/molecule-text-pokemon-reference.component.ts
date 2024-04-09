@@ -13,9 +13,9 @@ import { AtomTextPokemonCodeComponent, AtomTextPokemonNameComponent } from '../.
   styleUrl: './molecule-text-pokemon-reference.component.scss'
 })
 export class MoleculeTextPokemonReferenceComponent {
-  @Input({ required: true }) pokemonId: number = 0;
-  @Input({ required: true }) pokemonName: string = '';
-  @Input() isInlineReference: boolean = false;
+  @Input({ required: true }) pokemonId = 0;
+  @Input({ required: true }) pokemonName = '';
+  @Input() isInlineReference = false;
   @Input() styleObjectCode: any = {};
   @Input() styleObjectName: any = {};
 }

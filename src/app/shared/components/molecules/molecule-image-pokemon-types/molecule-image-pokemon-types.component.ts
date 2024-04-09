@@ -14,5 +14,5 @@ import { NgFor } from '@angular/common';
 })
 export class MoleculeImagePokemonTypesComponent {
   @Input({ required: true }) types: string[] = [];
-  @Input() isDetailed: boolean = false;
+  @Input() isDetailed = false;
 }

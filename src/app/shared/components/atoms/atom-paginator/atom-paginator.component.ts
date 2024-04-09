@@ -18,8 +18,8 @@ import { PageIndex, PageSize, PageSizeOptions } from '../../../constants';
 })
 export class AtomPaginatorComponent implements AfterViewInit {
   @Input({ required: true }) length = 0;
-  @Output() onPageEvent = new EventEmitter<PageEvent>()
-  @Output() onPaginator = new EventEmitter<MatPaginator>()
+  @Output() onPageEvent = new EventEmitter<PageEvent>();
+  @Output() onPaginator = new EventEmitter<MatPaginator>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

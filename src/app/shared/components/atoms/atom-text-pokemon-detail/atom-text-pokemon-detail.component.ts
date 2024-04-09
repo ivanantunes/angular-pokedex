@@ -9,6 +9,6 @@ import { Component, Input } from '@angular/core';
   `
 })
 export class AtomTextPokemonDetailComponent {
-  @Input({ required: true }) title: string = '';
-  @Input({ required: true }) text: string = '';
+  @Input({ required: true }) title = '';
+  @Input({ required: true }) text = '';
 }

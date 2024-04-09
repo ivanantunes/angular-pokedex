@@ -2,76 +2,78 @@
   <atom-loading />
 }
 
-<section class="container mt-2">
+@if (pokemon) {
+  <section class="container mt-2">
 
-  <section class="row">
-    <organism-pokemon-card-details class="col pcard" [pokemon]="pokemon" />
-    <organism-pokemon-chart-stats class="col pcard" [stats]="pokemon.stats" />
-  </section>
+    <section class="row">
+      <organism-pokemon-card-details class="col pcard" [pokemon]="pokemon" />
+      <organism-pokemon-chart-stats class="col pcard" [stats]="pokemon.stats" />
+    </section>
 
-  <section class="row">
+    <section class="row">
+      <organism-pokemon-damage-taken class="col pcard" [types]="pokemon.types" />
+    </section>
 
-  </section>
+    <div class="row">
 
-  <div class="row">
+      <div class="col poke-card-base" style="min-height: auto !important;">
 
-    <div class="col poke-card-base" style="min-height: auto !important;">
-
-      <!-- ! Container Header -->
-      <div class="poke-card-header">
-        <div>
-          <p><strong>Damage Taken</strong></p>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div *ngFor="let damage of damages" class="col poke-card-damange" [ngClass]="{
-          'poke-card-damange-2x': damage.value === 2,
-          'poke-card-damange-05x': damage.value === 0.5,
-          'poke-card-damange-025x': damage.value === 0.25,
-          'poke-card-damange-1x': damage.value === 1 || damage.value <= 0
-        }">
-          <div class="row" style="align-items: center;">
-            <div class="col">
-              <img [src]="'assets/img/icon-types/'+ damage.name + '.svg'" alt="Type {{damage.name}}" width="40" height="40">
-            </div>
-            <div class="col">
-              <p>{{damage.name}}</p>
-              <p style="font-size: 20px;"><strong>{{damage.value}}</strong></p>
-            </div>
+        <!-- ! Container Header -->
+        <div class="poke-card-header">
+          <div>
+            <p><strong>Damage Taken</strong></p>
           </div>
-
         </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="row" *ngIf="evolutionChain">
-
-    <div class="col poke-card-base" style="min-height: auto !important;">
-      <div class="poke-card-header">
-        <div>
-          <p><strong>Evolution Chain</strong></p>
-        </div>
-      </div>
 
 
-      <div class="row">
-        <div class="col" *ngFor="let evolution of evolutionChain; let last = last;">
+        <div class="row">
+          <div *ngFor="let damage of damages" class="col poke-card-damange" [ngClass]="{
+            'poke-card-damange-2x': damage.value === 2,
+            'poke-card-damange-05x': damage.value === 0.5,
+            'poke-card-damange-025x': damage.value === 0.25,
+            'poke-card-damange-1x': damage.value === 1 || damage.value <= 0
+          }">
+            <div class="row" style="align-items: center;">
+              <div class="col">
+                <img [src]="'assets/img/icon-types/'+ damage.name + '.svg'" alt="Type {{damage.name}}" width="40" height="40">
+              </div>
+              <div class="col">
+                <p>{{damage.name}}</p>
+                <p style="font-size: 20px;"><strong>{{damage.value}}</strong></p>
+              </div>
+            </div>
 
-          <a href="/pokemon/details/{{evolution.id}}">
-            <p>{{evolution.name}}</p>
-            <img [src]="evolution.sprites.front_default">
-            <mat-icon *ngIf="!last">arrow_forward</mat-icon>
-          </a>
-
+          </div>
         </div>
       </div>
 
     </div>
 
-  </div>
+    <div class="row" *ngIf="evolutionChain">
 
-</section>
+      <div class="col poke-card-base" style="min-height: auto !important;">
+        <div class="poke-card-header">
+          <div>
+            <p><strong>Evolution Chain</strong></p>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col" *ngFor="let evolution of evolutionChain; let last = last;">
+
+            <a href="/pokemon/details/{{evolution.id}}">
+              <p>{{evolution.name}}</p>
+              <img [src]="evolution.sprites.front_default">
+              <mat-icon *ngIf="!last">arrow_forward</mat-icon>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+}

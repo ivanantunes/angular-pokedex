@@ -13,8 +13,8 @@ import { MatTooltip } from '@angular/material/tooltip';
   `,
 })
 export class AtomImagePokemonTypeComponent {
-  @Input({ required: true }) type: string = '';
-  @Input() isTooltip: boolean = false;
+  @Input({ required: true }) type = '';
+  @Input() isTooltip = false;
 
   public get displayType(): string {
     const firstLetter = this.type[0].toUpperCase();

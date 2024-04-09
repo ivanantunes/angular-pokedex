@@ -13,5 +13,5 @@ import { AtomButtonFavoriteComponent, AtomButtonInfoComponent } from '../../atom
   styleUrl: './molecule-actions-default-pokemon.component.scss'
 })
 export class MoleculeActionsDefaultPokemonComponent {
-  @Input({ required: true }) pokemonId: number = 0;
+  @Input({ required: true }) pokemonId = 0;
 }

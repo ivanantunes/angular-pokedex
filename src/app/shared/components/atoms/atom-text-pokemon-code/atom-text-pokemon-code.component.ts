@@ -13,6 +13,6 @@ import { Component, Input } from '@angular/core';
   `
 })
 export class AtomTextPokemonCodeComponent {
-  @Input({ required: true }) pokemonId: number = 0;
+  @Input({ required: true }) pokemonId = 0;
   @Input() styleObject?: any;
 }

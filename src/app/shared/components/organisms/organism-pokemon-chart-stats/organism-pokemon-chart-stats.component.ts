@@ -45,22 +45,22 @@ export class OrganismPokemonChartStatsComponent implements OnInit {
   }
 
   private formatStats(name: string): string {
-		switch (name) {
-			case 'special-attack':
-				return 'Sp. Atk';
-			case 'special-defense':
-				return 'Sp. Def';
-			default:
-				return name.replace(/-/g, ' ').replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()));
-		}
-	}
+    switch (name) {
+      case 'special-attack':
+        return 'Sp. Atk';
+      case 'special-defense':
+        return 'Sp. Def';
+      default:
+        return name.replace(/-/g, ' ').replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()));
+    }
+  }
 
   private pokemonHPStat(base: number, level: number, iv: number = 0, ev: number = 0): number {
-		return Math.floor(0.01 * (2 * base + iv + Math.floor(0.25 * ev)) * level) + level + 10;
-	}
+    return Math.floor(0.01 * (2 * base + iv + Math.floor(0.25 * ev)) * level) + level + 10;
+  }
 
   private pokemonOthersStats(nature: boolean, base: number, level: number, iv: number = 0, ev: number = 0): number {
-		return Math.floor(((((2 * base + iv + Math.floor(ev * 0.25)) * level) / 100) + 5) * (nature ? 1.1 : 0.9));
-	}
+    return Math.floor(((((2 * base + iv + Math.floor(ev * 0.25)) * level) / 100) + 5) * (nature ? 1.1 : 0.9));
+  }
 
 }

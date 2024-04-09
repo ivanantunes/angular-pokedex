@@ -58,7 +58,7 @@ export class MoleculeTextPokemonDetailsComponent implements OnInit {
   }
 
   private setupHeight(): void {
-    this.height = `${this.pokemon.height / 10} m`
+    this.height = `${this.pokemon.height / 10} m`;
   }
 
   private setupAbilities(): void {

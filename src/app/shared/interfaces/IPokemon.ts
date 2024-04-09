@@ -274,3 +274,40 @@ export interface IPokemonSpecie {
   shape: IPokemonDataBase;
   varieties: IPokemonSpecieVarietie[]
 }
+
+export interface IPokemonResponse<X> {
+  count: number;
+  next?: string;
+  previous?: string;
+  results: X[]
+}
+
+export interface IPokemonDamageRelation {
+  double_damage_from: IPokemonDataBase[];
+  double_damage_to: IPokemonDataBase[];
+  half_damage_from: IPokemonDataBase[];
+  half_damage_to: IPokemonDataBase[];
+  no_damage_from: IPokemonDataBase[];
+  no_damage_to: IPokemonDataBase[];
+}
+
+export interface IPokemonTypeDetails {
+  damage_relations: IPokemonDamageRelation;
+  game_indices: {
+    game_index: number;
+    generation: IPokemonDataBase;
+  }[];
+  generation: IPokemonDataBase;
+  id: number;
+  move_damage_class: IPokemonDataBase;
+  moves: IPokemonDataBase[];
+  name: string;
+  past_damage_relations: {
+    damage_relations: IPokemonDamageRelation;
+    generation: IPokemonDataBase;
+  }[];
+  pokemon: {
+    pokemon: IPokemonDataBase;
+    slot: number;
+  }[];
+}

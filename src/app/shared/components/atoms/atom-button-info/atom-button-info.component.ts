@@ -23,5 +23,5 @@ import { RouterLink } from '@angular/router';
   `
 })
 export class AtomButtonInfoComponent {
-  @Input({ required: true }) pokemonId: number = 0;
+  @Input({ required: true }) pokemonId = 0;
 }

@@ -17,9 +17,9 @@ import { IPokemonSprites } from '../../../interfaces';
   styleUrl: './molecule-image-circle-pokemon.component.scss'
 })
 export class MoleculeImageCirclePokemonComponent {
-  @Input({ required: true }) pokemonType: string = '';
-  @Input({ required: true }) pokemonName: string = '';
+  @Input({ required: true }) pokemonType = '';
+  @Input({ required: true }) pokemonName = '';
   @Input() pekemonSprites?: IPokemonSprites;
-  @Input() pokemonShiny: boolean = false;
-  @Input() smallCircle: boolean = false;
+  @Input() pokemonShiny = false;
+  @Input() smallCircle = false;
 }

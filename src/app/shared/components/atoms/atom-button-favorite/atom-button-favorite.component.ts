@@ -31,7 +31,7 @@ import { MatIconButton } from '@angular/material/button';
 })
 export class AtomButtonFavoriteComponent implements AfterViewInit {
 
-  @Input({ required: true }) pokemonId: number = 0;
+  @Input({ required: true }) pokemonId = 0;
 
   public isFavorite = false;
 

@@ -30,14 +30,14 @@ export class OrganismPokemonCardDetailsComponent {
   @Input({ required: true }) pokemon!: IPokemon;
 
   public styleObjectCode = {
-    'color': '#7a7d80',
+    color: '#7a7d80',
     'font-size': 'large',
   };
 
   public styleObjectName = {
     'font-weight': 'bolder',
     'font-size': 'large',
-  }
+  };
 
   constructor() { }
 
