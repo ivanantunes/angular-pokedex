@@ -5,6 +5,8 @@
   </section>
 
   <section class="row">
-
+    @for (damage of damageTaken; track damage.damage) {
+      <molecule-card-pokemon-damage class="col" [pokemonTypeDamage]="damage" />
+    }
   </section>
 </section>

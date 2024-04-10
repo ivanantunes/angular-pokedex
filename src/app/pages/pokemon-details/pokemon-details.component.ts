@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink} from '@angular/router';
-import { concat, firstValueFrom, map, merge, switchMap, toArray } from 'rxjs';
-import { Location, NgIf, NgFor, NgClass } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { concat, firstValueFrom, map, switchMap, toArray } from 'rxjs';
+import { Location, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { RequestService } from 'src/app/services';
-import { MatIcon } from '@angular/material/icon';
-
 import { ToastrConfig } from '../../shared/constants';
 import { AtomLoadingComponent } from '../../shared/components/atoms';
 import {
@@ -15,6 +13,8 @@ import {
   OrganismPokemonDamageTakenComponent
 } from '../../shared/components/organisms';
 import { IPokemon } from '../../shared/interfaces';
+import { Title } from '@angular/platform-browser';
+import { PokemonUtil } from '../../shared/utils';
 
 @Component({
     selector: 'app-pokemon-details',
@@ -24,12 +24,6 @@ import { IPokemon } from '../../shared/interfaces';
     imports: [
       // ! Angular
       NgIf,
-      NgFor,
-      NgClass,
-      RouterLink,
-
-      // ! Material
-      MatIcon,
 
       // ! Atoms
       AtomLoadingComponent,
@@ -44,26 +38,25 @@ export class PokemonDetailsComponent implements OnInit {
   public loading = false;
   public pokemon?: IPokemon;
 
-  // ! Types Damage
-  public damages: { name: string, value: number }[] = [];
+
   public evolutionChain?: any[];
 
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
               private toastrService: ToastrService,
               private request: RequestService,
-              private _location: Location) {}
+              private title: Title,
+              private _location: Location) { }
 
   async ngOnInit(): Promise<void> {
     try {
       this.loading = true;
-      const params = await firstValueFrom(this.route.paramMap)
+      const params = await firstValueFrom(this.route.paramMap);
       const id = params.get('id');
       this.pokemon = await this.getPokemonById(id ?? '');
+      this.title.setTitle(`${PokemonUtil.firstLetterUpperCase(this.pokemon?.name ?? '')} - Pokédex`);
 
-      // await firstValueFrom(this.pokemonTypeChart());
-      this.pokemonTypeChart()
-      await this.setupEvolutionChain()
+      await this.setupEvolutionChain();
 
       this.loading = false;
     } catch (error) {
@@ -95,58 +88,6 @@ export class PokemonDetailsComponent implements OnInit {
   public slice(text: string, position: number, inc: string): string {
 		return text.slice(0, position) + inc + text.slice(position);
 	}
-
-  public pokemonTypeChart(): void {
-    this.request.pokemonTypes.pipe(
-      switchMap((pokemonTypeObject) => {
-        return merge(...(this.pokemon as any).types.map((type: any) => {
-          return this.http.get<any>(type.type.url).pipe(
-            map((damangeObject) => {
-              const damaged: Array<{ type: string, damage: number }> = [];
-
-              damangeObject.damage_relations.double_damage_from
-                                            .forEach((doubleDamage: any) => damaged.push({ type: doubleDamage.name, damage: 2 }));
-
-              damangeObject.damage_relations.half_damage_from
-                                            .forEach((halfDamage: any) => damaged.push({ type: halfDamage.name, damage: 0.5 }));
-
-              damangeObject.damage_relations.no_damage_from
-                                            .forEach((noDamage: any) => damaged.push({ type: noDamage.name, damage: 0 }));
-
-              return damaged;
-            })
-          )
-        })).pipe(
-          toArray(),
-          map((damagedTypes: any) => {
-            return pokemonTypeObject.results.map((result: any) => {
-              let filterDamaged = damagedTypes[0].filter((e: any) => e.type === result.name);
-
-              if (damagedTypes.length >= 2) {
-                filterDamaged = [...filterDamaged, ...damagedTypes[1]].filter((e) => e.type === result.name);
-              }
-
-              let finalDamageTakenByType = filterDamaged.length <= 0 ? 1 : filterDamaged.reduce((a: any, b: any) => {
-                a.damage *= b.damage;
-                return a;
-              }).damage;
-
-              return { name: result.name, value: finalDamageTakenByType }
-            })
-          }),
-          map((result) => {
-            result.splice(result.findIndex((f: any) => f.name === 'shadow'), 1);
-            result.splice(result.findIndex((f: any) => f.name === 'unknown'), 1);
-
-            return result;
-          })
-        )
-      })
-    ).subscribe({
-      next: (result) => this.damages = result,
-      error: (error) => console.log(error)
-    })
-  }
 
   public recurseEvolutionTo(evolves_to: any[]): { name: string, url: string }[]  {
     if (evolves_to.length > 0) {

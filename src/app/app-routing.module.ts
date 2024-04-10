@@ -14,6 +14,7 @@ const routes: Routes = [
   {
     path: 'pokemon/details/:id',
     component: PokemonDetailsComponent,
+    title: 'Details - Pokédex'
   },
   {
     path: '**',

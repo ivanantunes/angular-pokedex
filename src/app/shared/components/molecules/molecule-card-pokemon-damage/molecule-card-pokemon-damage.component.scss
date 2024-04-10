@@ -1,0 +1,38 @@
+.pcard {
+  min-width: 150px;
+  height: 100px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  text-align: center;
+  color: #7a7d80;
+  padding: 3px;
+  display: flex;
+  justify-content: space-evenly;
+
+  &--damage-all {
+    border: 2px  dotted #ff4af0;
+  }
+
+  &--damage-2x {
+    border: 2px  dotted #5edd73;
+  }
+
+  &--damage-1x {
+    border: 2px  dotted #7a7d80;
+  }
+
+  &--damage-0_5x {
+    border: 2px  dotted #e25555;
+  }
+
+  &--damage-0_25x {
+    border: 2px  dotted #e09e3a;
+  }
+
+}
+
+.pcard:hover {
+  transform: scale(1.1);
+}

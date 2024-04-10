@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
+import { PokemonUtil } from '../../../utils';
 
 @Component({
   selector: 'atom-image-pokemon-type',
@@ -9,7 +10,7 @@ import { MatTooltip } from '@angular/material/tooltip';
     MatTooltip
   ],
   template: `
-    <img src="assets/img/icon-types/{{type}}.svg" alt="Pokémon Type is {{displayType}}" [matTooltip]="isTooltip ? displayType : ''"  />
+    <img width="40" height="40" src="assets/img/icon-types/{{type}}.svg" alt="Pokémon Type is {{displayType}}" [matTooltip]="isTooltip ? displayType : ''"  />
   `,
 })
 export class AtomImagePokemonTypeComponent {
@@ -17,7 +18,6 @@ export class AtomImagePokemonTypeComponent {
   @Input() isTooltip = false;
 
   public get displayType(): string {
-    const firstLetter = this.type[0].toUpperCase();
-    return `${firstLetter}${this.type.substring(1, this.type.length)}`;
+    return PokemonUtil.firstLetterUpperCase(this.type);
   }
 }

@@ -4,7 +4,8 @@ import { AtomTextPokemonDetailComponent } from '../../atoms';
 import { IPokemon } from '../../../interfaces';
 import { PokemonRequestService } from '../../../services';
 import { ToastrService } from 'ngx-toastr';
-import { TitleFailedLog, ToastrConfig } from 'src/app/shared/constants';
+import { TitleFailedLog, ToastrConfig } from '../../../constants';
+import { PokemonUtil } from '../../../utils';
 
 @Component({
   selector: 'molecule-text-pokemon-details',
@@ -45,7 +46,7 @@ export class MoleculeTextPokemonDetailsComponent implements OnInit {
     try {
       const species = await firstValueFrom(this.pokemonRequest.getSpecies(this.pokemon.species.url));
       this.specie = species.genera.find((f) => f.language.name === 'en')?.genus ?? 'Not Defined';
-      this.meetingPlaces = species.pal_park_encounters.map((f) => `${f.area.name[0].toUpperCase()}${f.area.name.substring(1, f.area.name.length)}`).join(', ');
+      this.meetingPlaces = species.pal_park_encounters.map((f) => PokemonUtil.firstLetterUpperCase(f.area.name)).join(', ');
       this.generation = species.generation.name.replace('generation-', '').toUpperCase();
     } catch (error) {
       console.error(TitleFailedLog.specie, error);

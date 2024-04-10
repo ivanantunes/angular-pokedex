@@ -19,7 +19,12 @@
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+
+      &--type {
+        transform: scale(0.5);
+      }
     }
+
 
     &__section > p {
       margin: 5px;

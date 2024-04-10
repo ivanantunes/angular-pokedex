@@ -1,21 +1,29 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PokemonRequestService } from '../../../services';
 import { map, merge, switchMap, toArray } from 'rxjs';
-import { IPokemonType } from '../../../interfaces';
+import { IPokemonType, IPokemonTypeData } from '../../../interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { TitleFailedLog, ToastrConfig } from '../../../constants';
+import { MoleculeCardPokemonDamageComponent } from '../../molecules';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'organism-pokemon-damage-taken',
   standalone: true,
-  imports: [],
+  imports: [
+    // ! Angular
+    NgFor,
+
+    // ! Molecules
+    MoleculeCardPokemonDamageComponent
+  ],
   templateUrl: './organism-pokemon-damage-taken.component.html',
   styleUrl: './organism-pokemon-damage-taken.component.scss'
 })
 export class OrganismPokemonDamageTakenComponent implements OnInit {
   @Input({ required: true }) types: IPokemonType[] = [];
 
-  public damageTaken: { type: string, damage: number }[] = [];
+  public damageTaken: IPokemonTypeData[] = [];
 
   constructor(
     private pokemonRequest: PokemonRequestService,

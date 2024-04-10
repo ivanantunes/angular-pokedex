@@ -272,14 +272,14 @@ export interface IPokemonSpecie {
   pal_park_encounters: IPokemonSpecieEncounter[];
   pokedex_numbers: IPokemonSpeciePokedex[];
   shape: IPokemonDataBase;
-  varieties: IPokemonSpecieVarietie[]
+  varieties: IPokemonSpecieVarietie[];
 }
 
 export interface IPokemonResponse<X> {
   count: number;
   next?: string;
   previous?: string;
-  results: X[]
+  results: X[];
 }
 
 export interface IPokemonDamageRelation {
@@ -310,4 +310,9 @@ export interface IPokemonTypeDetails {
     pokemon: IPokemonDataBase;
     slot: number;
   }[];
+}
+
+export interface IPokemonTypeData {
+  type: string;
+  damage: number;
 }
