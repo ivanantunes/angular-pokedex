@@ -10,7 +10,8 @@ import { AtomLoadingComponent } from '../../shared/components/atoms';
 import {
   OrganismPokemonCardDetailsComponent,
   OrganismPokemonChartStatsComponent,
-  OrganismPokemonDamageTakenComponent
+  OrganismPokemonDamageTakenComponent,
+  OrganismPokemonEvolutionComponent
 } from '../../shared/components/organisms';
 import { IPokemon } from '../../shared/interfaces';
 import { Title } from '@angular/platform-browser';
@@ -31,7 +32,8 @@ import { PokemonUtil } from '../../shared/utils';
       // ! Organisms
       OrganismPokemonCardDetailsComponent,
       OrganismPokemonChartStatsComponent,
-      OrganismPokemonDamageTakenComponent
+      OrganismPokemonDamageTakenComponent,
+      OrganismPokemonEvolutionComponent
     ]
 })
 export class PokemonDetailsComponent implements OnInit {
