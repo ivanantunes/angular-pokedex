@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IPokemon, IPokemonDataBase, IPokemonResponse, IPokemonSpecie, IPokemonTypeDetails} from '../interfaces';
+import { IPokemon, IPokemonDataBase, IPokemonEvolution, IPokemonResponse, IPokemonSpecie, IPokemonTypeDetails} from '../interfaces';
 import { PageSize } from '../constants';
 
 @Injectable({
@@ -33,6 +33,10 @@ export class PokemonRequestService {
 
   public getType(url: string): Observable<IPokemonTypeDetails> {
     return this.http.get<IPokemonTypeDetails>(url);
+  }
+
+  public getEvolutionChain(id: string): Observable<IPokemonEvolution> {
+    return this.http.get<IPokemonEvolution>(`${this.baseURL}/evolution-chain/${id}`);
   }
 }
 

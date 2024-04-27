@@ -1,0 +1,51 @@
+<section class="p-2">
+
+  <section class="pcard__header">
+    <p><strong>Evolution Chain</strong></p>
+  </section>
+
+  <section class="row">
+
+  @for (pokemonEvolution of pokemonEvolutions; track pokemonEvolution.pokemon.id) {
+    <section class="col pcard__body">
+
+      <section class="d-flex mb-2 justify-content-end">
+        <atom-button-info [pokemonId]="pokemonEvolution.pokemon.id" />
+        @if (pokemonEvolution.evolution.evolutionDetails && pokemonEvolution.evolution.evolutionDetails.length > 0) {
+          <button mat-icon-button type="button" color="warn" (click)="showDetails(pokemonEvolution.evolution.evolutionDetails)" matTooltip="Click to More Info Evolution!">
+            <mat-icon>trending_up</mat-icon>
+          </button>
+        }
+
+      </section>
+
+      <molecule-text-pokemon-reference class="pcard__body--name"
+        [pokemonId]="pokemonEvolution.pokemon.id"
+        [pokemonName]="pokemonEvolution.pokemon.name"
+        [isInlineReference]="true"
+        [styleObjectCode]="styleObjectCode"
+        [styleObjectName]="styleObjectName"
+      />
+
+      <molecule-image-circle-pokemon
+        [pekemonSprites]="pokemonEvolution.pokemon.sprites"
+        [pokemonName]="pokemonEvolution.pokemon.name"
+        [pokemonShiny]="false"
+        [pokemonType]="pokemonEvolution.pokemon.types[0].type.name"
+        [smallCircle]="true"
+      />
+
+      <molecule-image-pokemon-types
+        [isDetailed]="true"
+        [types]="getTypes(pokemonEvolution.pokemon)"
+      />
+
+    </section>
+
+  } @empty {
+    <p>Loading...</p>
+  }
+
+  </section>
+
+</section>

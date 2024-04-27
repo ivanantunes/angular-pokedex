@@ -316,3 +316,37 @@ export interface IPokemonTypeData {
   type: string;
   damage: number;
 }
+
+export interface IPokemonEvolutionDetails {
+  gender?: number;
+  held_item?: IPokemonDataBase;
+  item?: IPokemonDataBase;
+  known_move?: IPokemonDataBase;
+  known_move_type?: IPokemonDataBase;
+  location?: IPokemonDataBase;
+  min_affection?: number;
+  min_beauty?: number;
+  min_happiness?: number;
+  min_level?: number;
+  needs_overworld_rain: boolean;
+  party_species?: IPokemonDataBase;
+  party_type?: IPokemonDataBase;
+  relative_physical_stats?: number;
+  time_of_day: string;
+  trade_species?: IPokemonDataBase;
+  trigger: IPokemonDataBase;
+  turn_upside_down: boolean;
+}
+
+export interface IPokemonEvolutionChain {
+  evolution_details: IPokemonEvolutionDetails[];
+  evolves_to: IPokemonEvolutionChain[];
+  is_baby: boolean;
+  species: IPokemonDataBase;
+}
+
+export interface IPokemonEvolution {
+  baby_trigger_item?: any;
+  chain: IPokemonEvolutionChain;
+  id: number;
+}

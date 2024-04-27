@@ -5,3 +5,4 @@ export * from './molecule-text-pokemon-reference/molecule-text-pokemon-reference
 export * from './molecule-image-pokemon-types/molecule-image-pokemon-types.component';
 export * from './molecule-text-pokemon-details/molecule-text-pokemon-details.component';
 export * from './molecule-card-pokemon-damage/molecule-card-pokemon-damage.component';
+export * from './molecule-text-pokemon-evolution/molecule-text-pokemon-evolution.component';

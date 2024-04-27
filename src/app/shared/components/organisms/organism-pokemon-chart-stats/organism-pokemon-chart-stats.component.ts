@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BarChartModule, Color, ScaleType } from '@swimlane/ngx-charts';
 import { IChartData, IPokemonStat } from '../../../interfaces';
+import { merge, Subject } from 'rxjs';
 
 @Component({
   selector: 'organism-pokemon-chart-stats',
@@ -14,6 +15,7 @@ import { IChartData, IPokemonStat } from '../../../interfaces';
 })
 export class OrganismPokemonChartStatsComponent implements OnInit {
   @Input({ required: true }) stats: IPokemonStat[] = [];
+  @Input({ required: true }) refeshCharts = new Subject<void>();
 
   public chartColor: Color = {
     name: 'Stats',
@@ -24,12 +26,17 @@ export class OrganismPokemonChartStatsComponent implements OnInit {
   public chartValue: IChartData[] = [];
   public xScaleMax = 0;
 
+  constructor() { }
+
   public ngOnInit(): void {
-    this.setupBaseStats();
+    merge(this.refeshCharts).subscribe({
+      next: () => this.setupBaseStats()
+    });
   }
 
   private setupBaseStats(): void {
     let max = 0;
+    this.chartValue = [];
 
     this.stats.forEach((stat) => {
       this.chartValue.push({ name: this.formatStats(stat.stat.name), value: stat.base_stat });

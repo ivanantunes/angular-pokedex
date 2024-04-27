@@ -1,0 +1,10 @@
+<mat-list>
+
+  @for (item of items; track item.key) {
+    <mat-list-item>
+      <div matListItemTitle>{{item.title}}</div>
+      <div matListItemLine>{{item.description}}</div>
+    </mat-list-item>
+  }
+
+</mat-list>

@@ -1,0 +1,35 @@
+.pcard {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px;
+    font-weight: bolder;
+    font-size: large;
+  }
+
+  &__body {
+    padding: 20px;
+    border: 1.5px dotted #7a7d80;
+    border-radius: 12px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &--name {
+      display: flex;
+      justify-content: center;
+      border: 1.5px dotted #7a7d80;
+      color: #7a7d80;
+      border-radius: 20px;
+      padding: 5px 10px;
+      margin-bottom: 10px;
+    }
+  }
+
+}

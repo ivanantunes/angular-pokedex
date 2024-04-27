@@ -2,12 +2,15 @@
   <atom-loading />
 }
 
+
 @if (pokemon) {
   <section class="container mt-2">
 
+    <atom-button-back [url]="'/'" />
+
     <section class="row">
-      <organism-pokemon-card-details class="col pcard" [pokemon]="pokemon" />
-      <organism-pokemon-chart-stats class="col pcard" [stats]="pokemon.stats" />
+      <organism-pokemon-card-details class="col pcard" [pokemon]="pokemon" [refreshDetails]="refreshScreen" />
+      <organism-pokemon-chart-stats class="col pcard" [stats]="pokemon.stats" [refeshCharts]="refreshScreen" />
     </section>
 
     <section class="row">
@@ -15,34 +18,8 @@
     </section>
 
     <section class="row">
-      <organism-pokemon-evolution class="col pcard" />
+      <organism-pokemon-evolution class="col pcard" [species]="pokemon.species" />
     </section>
-
-    <!-- <div class="row" *ngIf="evolutionChain">
-
-      <div class="col pcard" style="min-height: auto !important;">
-        <div class="poke-card-header">
-          <div>
-            <p><strong>Evolution Chain</strong></p>
-          </div>
-        </div>
-
-
-        <div class="row">
-          <div class="col" *ngFor="let evolution of evolutionChain; let last = last;">
-
-            <a href="/pokemon/details/{{evolution.id}}">
-              <p>{{evolution.name}}</p>
-              <img [src]="evolution.sprites.front_default">
-              <mat-icon *ngIf="!last">arrow_forward</mat-icon>
-            </a>
-
-          </div>
-        </div>
-
-      </div>
-
-    </div> -->
 
   </section>
 }

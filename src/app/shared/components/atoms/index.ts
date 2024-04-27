@@ -11,6 +11,7 @@ export * from './atom-image-pokemon-type/atom-image-pokemon-type.component';
 export * from './atom-button-favorite/atom-button-favorite.component';
 export * from './atom-button-search/atom-button-search.component';
 export * from './atom-button-info/atom-button-info.component';
+export * from './atom-button-back/atom-button-back.component';
 
 // ! Inputs
 export * from './atom-input-search/atom-input-search.component';

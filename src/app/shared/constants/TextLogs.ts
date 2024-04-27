@@ -9,5 +9,6 @@ export const TitleFailedLog = {
   favorite: `Failed to Favorite ${FaceExpressionsLog.error}`,
   specie: `Failed to Specie ${FaceExpressionsLog.error}`,
   type: `Failed to Type ${FaceExpressionsLog.error}`,
+  evolution: `Failed to Evolution Chain ${FaceExpressionsLog.error}`
 };
 

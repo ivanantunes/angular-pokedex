@@ -10,12 +10,12 @@ import { IPokemonSprites } from '../../../interfaces';
   `
 })
 export class AtomImagePokemonComponent {
-  @Input({ required: true }) pokemonName: string = '';
+  @Input({ required: true }) pokemonName = '';
   @Input({ required: true }) sprites?: IPokemonSprites;
-  @Input() isShiny: boolean = false;
+  @Input() isShiny = false;
 
   public get pokemonImage(): { width: number, height: number, url: string } {
-    let object = {
+    const object = {
       width: 64,
       height: 64,
       url: 'assets/img/loading.png'
@@ -25,7 +25,7 @@ export class AtomImagePokemonComponent {
       if (this.sprites?.other['official-artwork'].front_default) {
         object.url = this.sprites.other['official-artwork'].front_default;
       } else if (this.sprites?.other.dream_world.front_default) {
-        object.url = this.sprites.other.dream_world.front_default
+        object.url = this.sprites.other.dream_world.front_default;
       } else if (this.sprites?.front_default) {
         object.width = 94;
         object.height = 94;
@@ -37,7 +37,7 @@ export class AtomImagePokemonComponent {
       } else if (this.sprites?.front_shiny) {
         object.width = 94;
         object.height = 94;
-        object.url = this.sprites.front_shiny
+        object.url = this.sprites.front_shiny;
       }
     }
 

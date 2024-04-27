@@ -1,4 +1,4 @@
-import { firstValueFrom } from 'rxjs';
+import { merge, of, Subject, switchMap, tap } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
 import { AtomTextPokemonDetailComponent } from '../../atoms';
 import { IPokemon } from '../../../interfaces';
@@ -20,6 +20,7 @@ import { PokemonUtil } from '../../../utils';
 export class MoleculeTextPokemonDetailsComponent implements OnInit {
   // TODO: Add news Details
   @Input({ required: true }) pokemon!: IPokemon;
+  @Input({ required: true }) refeshDetails = new Subject<void>();
 
   public specie = '';
   public height = '0 m';
@@ -33,25 +34,38 @@ export class MoleculeTextPokemonDetailsComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
-  public async ngOnInit(): Promise<void> {
-    if (this.pokemon) {
-      await this.setupSpecie();
-      this.setupWeight();
-      this.setupHeight();
-      this.setupAbilities();
-    }
+  public ngOnInit(): void {
+    merge(this.refeshDetails).pipe(
+      switchMap(() => {
+        if (this.pokemon) {
+          return this.setupSpecie();
+        }
+
+        return of(undefined);
+      })
+    ).subscribe({
+      next: () => {
+        if (this.pokemon) {
+          this.setupWeight();
+          this.setupHeight();
+          this.setupAbilities();
+        }
+      },
+      error: (error) => {
+        console.error(TitleFailedLog.specie, error);
+        this.toastr.error('Failed to Get Specie Pokémon', TitleFailedLog.specie, ToastrConfig);
+      }
+    });
   }
 
-  private async setupSpecie() {
-    try {
-      const species = await firstValueFrom(this.pokemonRequest.getSpecies(this.pokemon.species.url));
-      this.specie = species.genera.find((f) => f.language.name === 'en')?.genus ?? 'Not Defined';
-      this.meetingPlaces = species.pal_park_encounters.map((f) => PokemonUtil.firstLetterUpperCase(f.area.name)).join(', ');
-      this.generation = species.generation.name.replace('generation-', '').toUpperCase();
-    } catch (error) {
-      console.error(TitleFailedLog.specie, error);
-      this.toastr.error('Failed to Get Specie Pokémon', TitleFailedLog.specie, ToastrConfig);
-    }
+  private setupSpecie() {
+    return this.pokemonRequest.getSpecies(this.pokemon.species.url).pipe(
+      tap((species) => {
+        this.specie = species.genera.find((f) => f.language.name === 'en')?.genus ?? 'Not Defined';
+        this.meetingPlaces = species.pal_park_encounters.map((f) => PokemonUtil.firstLetterUpperCase(f.area.name)).join(', ');
+        this.generation = species.generation.name.replace('generation-', '').toUpperCase();
+      })
+    );
   }
 
   private setupWeight(): void {

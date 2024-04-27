@@ -120,6 +120,6 @@ export class HomeComponent implements AfterViewInit {
         this.pokemonIds = [];
         this.toastr.error(`Failed to Loading Pokémons, Please Try Again.`, TitleFailedLog.loading, ToastrConfig);
       }
-    })
+    });
   }
 }

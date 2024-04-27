@@ -8,6 +8,7 @@ import {
 import { IPokemon } from '../../../interfaces';
 import { AtomButtonFavoriteComponent } from '../../atoms';
 import { NgIf } from '@angular/common';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'organism-pokemon-card-details',
@@ -28,6 +29,7 @@ import { NgIf } from '@angular/common';
 })
 export class OrganismPokemonCardDetailsComponent {
   @Input({ required: true }) pokemon!: IPokemon;
+  @Input({ required: true }) refreshDetails = new Subject<void>();
 
   public styleObjectCode = {
     color: '#7a7d80',

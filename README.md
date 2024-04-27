@@ -1,7 +1,9 @@
 # Pokédex
 
 ## TO:DO
+
 - [X] First Page (Dashboard)
+
 - List All Pokémons
   - [X] Paginator
   - [X] Search Box
@@ -13,9 +15,11 @@
   - [X] Base Stats
   - [X] Types
   - [X] Shiny Format
-  - [ ] Evolutions
+  - [X] Evolutions
   - [ ] Movements
+
   > **Notes**: The more details you provide, the more complete the pokemon details will be.
+  >
 - User (Local)
   - [X] Add Pokémon to Favorite
   - [X] Remove Pokémon to Favorite
